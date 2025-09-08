@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TopMyBusiness - Power QR</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .animate-glow {
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 10px rgba(255,255,255,0.6); }
+      to { box-shadow: 0 0 30px rgba(255,255,255,1); }
+    }
+    .bg-animated {
+      background: linear-gradient(-45deg, #6366f1, #ec4899, #f59e0b, #10b981);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+    }
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+</head>
+<body class="bg-animated text-white font-sans">
+
+  <!-- Hero Section -->
+  <section class="h-screen flex flex-col items-center justify-center text-center px-6 relative">
+    <div class="animate-bounce mb-6">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://topmybusiness.online" alt="Power QR" class="rounded-3xl shadow-2xl border-4 border-white animate-glow" />
+    </div>
+    <h1 class="text-4xl font-extrabold mb-4 leading-tight drop-shadow-lg">One QR. Every Customer Action.</h1>
+    <p class="text-lg opacity-90 mb-10 max-w-xs">Instant WhatsApp, Maps, Reviews, Calls & more — all from one scan.</p>
+    <a href="#features" class="absolute bottom-6 bg-yellow-400 text-black px-10 py-4 rounded-full font-bold text-lg shadow-xl animate-pulse">🚀 Create My Power QR</a>
+  </section>
+
+  <!-- Features Carousel -->
+  <section id="features" class="bg-white text-gray-900 py-12 px-4">
+    <h2 class="text-3xl font-bold text-center mb-8">✨ Why Businesses Love Power QR</h2>
+    <div class="overflow-x-scroll flex space-x-6 snap-x snap-mandatory pb-6">
+
+      <!-- WhatsApp -->
+      <div class="snap-center shrink-0 w-72 bg-gradient-to-br from-green-500 to-green-700 text-white rounded-3xl p-6 shadow-2xl">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mb-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8a9 9 0 100-18 9 9 0 000 18z" />
+        </svg>
+        <h3 class="text-xl font-bold mb-2">Instant WhatsApp</h3>
+        <p class="text-sm">One scan → chat opens. Example: Salon booking in 2 sec.</p>
+      </div>
+
+      <!-- Maps -->
+      <div class="snap-center shrink-0 w-72 bg-gradient-to-br from-blue-500 to-indigo-700 text-white rounded-3xl p-6 shadow-2xl">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mb-4 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5 9 6.343 9 8s1.343 3 3 3z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.341A8 8 0 116.343 4.572l7.07 7.071a8 8 0 006.015 3.698z" />
+        </svg>
+        <h3 class="text-xl font-bold mb-2">Instant Directions</h3>
+        <p class="text-sm">Customers tap → Google Maps. Example: Restaurant found fast.</p>
+      </div>
+
+      <!-- Followers -->
+      <div class="snap-center shrink-0 w-72 bg-gradient-to-br from-pink-500 to-rose-700 text-white rounded-3xl p-6 shadow-2xl">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mb-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5V9h-5M12 20H7V4h5m5 16V9a5 5 0 00-5-5H7a5 5 0 00-5 5v11h5" />
+        </svg>
+        <h3 class="text-xl font-bold mb-2">Grow Followers</h3>
+        <p class="text-sm">Scan → Instagram opens. Example: Fashion store gains 100+ daily.</p>
+      </div>
+
+      <!-- Reviews -->
+      <div class="snap-center shrink-0 w-72 bg-gradient-to-br from-yellow-400 to-orange-600 text-white rounded-3xl p-6 shadow-2xl">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mb-4 animate-pulse" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.97a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.385 2.46a1 1 0 00-.364 1.118l1.287 3.97c.3.921-.755 1.688-1.54 1.118l-3.386-2.46a1 1 0 00-1.175 0l-3.385 2.46c-.785.57-1.84-.197-1.54-1.118l1.287-3.97a1 1 0 00-.364-1.118L2.98 9.397c-.783-.57-.38-1.81.588-1.81h4.178a1 1 0 00.95-.69l1.287-3.97z" />
+        </svg>
+        <h3 class="text-xl font-bold mb-2">Boost Reviews</h3>
+        <p class="text-sm">Scan → Google Review. Example: Café gets 50+ 5⭐ ratings.</p>
+      </div>
+
+      <!-- Calls -->
+      <div class="snap-center shrink-0 w-72 bg-gradient-to-br from-purple-500 to-indigo-800 text-white rounded-3xl p-6 shadow-2xl">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mb-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h2l3.6 7.59-1.35 2.44A2 2 0 009 18h6a2 2 0 001.75-1.03l3.57-6.49A1 1 0 0019 9H6" />
+        </svg>
+        <h3 class="text-xl font-bold mb-2">Direct Calls</h3>
+        <p class="text-sm">Tap → Call instantly. Example: Clinic gets 30+ bookings daily.</p>
+      </div>
+
+      <!-- Search -->
+      <div class="snap-center shrink-0 w-72 bg-gradient-to-br from-teal-500 to-emerald-700 text-white rounded-3xl p-6 shadow-2xl">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mb-4 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
+        </svg>
+        <h3 class="text-xl font-bold mb-2">Rank Top on Google</h3>
+        <p class="text-sm">“Near me” → You show up. Example: Gym ranks #1 in Maps.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROI Section -->
+  <section class="py-16 px-6 text-center bg-gradient-to-b from-indigo-800 to-purple-900">
+    <h2 class="text-3xl font-bold mb-4">📈 ROI That Speaks</h2>
+    <p class="opacity-90 mb-8 text-lg">100 scans → 30 customers → ₹50,000+ in sales.</p>
+    <a href="https://wa.me/918888888888" class="bg-yellow-400 text-black px-10 py-4 rounded-full font-bold text-lg shadow-xl animate-glow">💬 Chat on WhatsApp</a>
+  </section>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/918888888888" class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-2xl animate-bounce">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8a9 9 0 100-18 9 9 0 000 18z" />
+    </svg>
+  </a>
+
+</body>
+</html>
