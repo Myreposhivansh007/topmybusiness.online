@@ -2,158 +2,274 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <title>Infinity Salon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Business Connect</title>
   <style>
     body {
       margin: 0;
-      font-family: "Roboto", Arial, sans-serif;
-      background: #f1f5f9;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #2b0033, #120022);
+      -webkit-tap-highlight-color: transparent;
+      color: #fff;
     }
+
     .app {
-      width: 100%;
-      max-width: 420px;
-      background: #fff;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
       display: flex;
       flex-direction: column;
+      min-height: 100vh;
+      max-width: 480px;
+      width: 100%;
+      background: linear-gradient(135deg, #2b0033, #120022);
+      margin: 0 auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.35);
+      position: relative;
+      overflow: hidden;
     }
-    header {
-      background: linear-gradient(90deg, #2563eb, #1e40af);
-      padding: 16px;
+
+    /* Header */
+    .hero {
+      background: linear-gradient(135deg, #9d00ff, #ff00cc);
       color: #fff;
+      padding: 16px;
       text-align: center;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.4);
     }
-    header h1 { margin: 0; font-size: 20px; }
-    header p { margin: 4px 0 0; font-size: 13px; opacity: 0.9; }
-    main {
-      padding: 18px;
+    .hero h1 { font-size: 22px; margin: 0; font-weight: 700; }
+    .hero p { margin-top: 4px; font-size: 13px; font-weight: 500; }
+
+    /* Middle content */
+    .middle {
       flex: 1;
-      overflow-y: auto;
-    }
-    .info {
-      margin-bottom: 16px;
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 12px 14px;
-      font-size: 14px;
-      color: #374151;
-      text-align: left;
-    }
-    .info strong {
-      display: block;
-      margin-bottom: 4px;
-      color: #111827;
-    }
-    form {
-      margin: 14px 0;
       display: flex;
       flex-direction: column;
       gap: 10px;
-    }
-    input {
       padding: 12px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      font-size: 14px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      margin-bottom: 120px; /* space for sticky nav + footer */
+    }
+    .info {
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 13px;
+      line-height: 1.4;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .info strong { display: block; margin-bottom: 4px; font-size: 14px; color: #bb86fc; }
+
+    /* Form */
+    .form-card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      text-align: center;
     }
     button {
-      padding: 14px;
+      padding: 12px 20px;
       border: none;
-      border-radius: 12px;
-      background: linear-gradient(90deg, #22c55e, #16a34a);
+      border-radius: 10px;
+      background: linear-gradient(135deg, #9d00ff, #ff00cc);
       color: #fff;
-      font-weight: bold;
-      font-size: 15px;
+      font-weight: 700;
+      font-size: 14px;
       cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      transition: 0.3s;
     }
-    .actions {
-      padding: 16px;
-      border-top: 1px solid #e5e7eb;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .btn {
-      display: block;
-      padding: 14px;
-      text-align: center;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 12px;
-      color: #fff;
-      font-size: 15px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-    }
-    .btn.review { background: linear-gradient(90deg, #f59e0b, #d97706); }
-    .btn.map { background: linear-gradient(90deg, #3b82f6, #1d4ed8); }
-    .btn.instagram { background: linear-gradient(90deg, #e1306c, #c13584); }
+    button:hover { transform: scale(1.05); }
 
-    /* side by side for map + insta */
-    .row {
+    /* Sticky Bottom nav */
+    .bottom-nav {
       display: flex;
-      gap: 12px;
+      justify-content: space-around;
+      align-items: center;
+      padding: 8px 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      position: fixed;
+      bottom: 54px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
+      z-index: 1000;
     }
-    .row .btn {
-      flex: 1;
+    .nav-item { text-align: center; text-decoration: none; color: #fff; font-size: 11px; font-weight: 700; }
+    .circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 3px;
+      font-size: 20px;
+      background: linear-gradient(135deg, #9d00ff, #ff00cc);
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+      transition: 0.3s;
     }
+    .circle:hover { transform: scale(1.1); }
+
+    /* Footer */
+    .footer {
+      height: 54px;
+      background: linear-gradient(135deg, #9d00ff, #ff00cc);
+      color: #fff;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
+      z-index: 999;
+    }
+
+    /* Mandatory Popup */
+    #popupOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    #popupBox {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(200,0,255,0.6);
+      max-width: 90%;
+    }
+    #popupBox input {
+      width: 80%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      margin: 10px 0;
+      text-align: center;
+      font-size: 1em;
+    }
+    #errorMsg { color: #ff4d6d; font-size: 0.9em; }
   </style>
 </head>
 <body>
-  <div class="app">
-    <header>
-      <h1>Infinity Salon</h1>
-      <p>Fast support & trusted reviews</p>
-    </header>
-
-    <main>
-      <div class="info">
-        <strong>💬 Why WhatsApp Connect?</strong>
-        <p>Get instant replies, book services easily, and stay updated — all from the convenience of your WhatsApp. No waiting, no hassle!</p>
-      </div>
-
-      <div class="info">
-        <strong>⭐ Why Reviews Matter?</strong>
-        <p>Your feedback helps us improve and gives confidence to new customers. Every review makes our service better for you.</p>
-      </div>
-
-      <form id="leadForm">
-        <input type="text" id="name" placeholder="Your Name" required />
-        <input type="tel" id="number" placeholder="Your WhatsApp Number" required />
-        <button type="submit">Submit & Open WhatsApp</button>
-      </form>
-    </main>
-
-    <div class="actions">
-      <a class="btn review" href="https://maps.google.com/maps?cid=15071919677261641498&entry=ttu" target="_blank">⭐ Leave a Review</a>
-      <div class="row">
-        <a class="btn map" href="https://maps.google.com/maps?cid=15071919677261641498&entry=ttu" target="_blank">📍 Find Us</a>
-        <a class="btn instagram" href="https://instagram.com/yourhandle" target="_blank">📸 Instagram</a>
-      </div>
+  <div id="popupOverlay">
+    <div id="popupBox">
+      <h2>Enter Details</h2>
+      <input type="text" id="popupName" placeholder="Your Name">
+      <input type="text" id="popupNumber" placeholder="10-digit WhatsApp Number">
+      <p id="errorMsg"></p>
+      <button onclick="validatePopup()">Continue</button>
     </div>
   </div>
 
-  <script>
-    const targetNumber = "918432019333"; // Infinity Salon WhatsApp number
+  <div class="app">
+    <!-- Header -->
+    <div class="hero">
+      <h1>Business Connect</h1>
+      <p>Fast support • Trusted reviews • Easy booking</p>
+    </div>
 
-    document.getElementById("leadForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const name = document.getElementById("name").value.trim();
-      const number = document.getElementById("number").value.trim();
-      if (!name || !number) {
-        alert("Please fill in your name and WhatsApp number.");
+    <!-- Middle content -->
+    <div class="middle">
+      <div class="info">
+        <strong>⭐ Why Reviews Matter?</strong>
+        <p>Your feedback builds trust and helps businesses improve their services.</p>
+      </div>
+      <div class="info">
+        <strong>💬 Why WhatsApp Connect?</strong>
+        <p>Instant replies, easy bookings, and updates on your phone. No waiting, no hassle.</p>
+      </div>
+      <div class="info">
+        <strong>🚀 Why Quick Connect?</strong>
+        <p>One tap to connect, review, or book without wasting time.</p>
+      </div>
+
+      <div class="form-card">
+        <button id="submitBtn">🚀 Submit & Open WhatsApp</button>
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="bottom-nav">
+      <a class="nav-item review" href="https://maps.google.com/maps?cid=15071919677261641498&entry=ttu" target="_blank">
+        <div class="circle">⭐</div>Review
+      </a>
+      <a class="nav-item map" href="https://maps.google.com/maps?cid=15071919677261641498&entry=ttu" target="_blank">
+        <div class="circle">📍</div>Map
+      </a>
+      <a class="nav-item instagram" href="https://instagram.com/yourhandle" target="_blank">
+        <div class="circle">📸</div>Instagram
+      </a>
+      <a class="nav-item call" href="tel:8432019333">
+        <div class="circle">📞</div>Call
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">Visit Once to Experience the Best</div>
+  </div>
+
+  <script>
+    let savedName = null;
+    let savedNumber = null;
+    const targetNumber = "918432019333";
+
+    function validatePopup() {
+      const name = document.getElementById("popupName").value.trim();
+      const num = document.getElementById("popupNumber").value.trim();
+      const errorMsg = document.getElementById("errorMsg");
+
+      if (!name) {
+        errorMsg.textContent = "Please enter your name.";
         return;
       }
-      const msg = `Hello, my name is ${name}. My WhatsApp number is ${number}.`;
-      const url = `https://wa.me/${targetNumber}?text=${encodeURIComponent(msg)}`;
+      if (!/^\d{10}$/.test(num)) {
+        errorMsg.textContent = "Enter a valid 10-digit WhatsApp number.";
+        return;
+      }
+
+      savedName = name;
+      savedNumber = num;
+      document.getElementById("popupOverlay").style.display = "none";
+    }
+
+    document.getElementById("submitBtn").addEventListener("click", function() {
+      if (!savedName || !savedNumber) {
+        alert("Please complete popup details first.");
+        return;
+      }
+      const msg = `Hello, my name is ${savedName}. My WhatsApp number is ${savedNumber}.`;
+      const url = `https://api.whatsapp.com/send?phone=${targetNumber}&text=${encodeURIComponent(msg)}`;
       window.open(url, "_blank");
+    });
+
+    // Prevent clicks on nav before popup
+    document.querySelectorAll(".bottom-nav a").forEach(link => {
+      link.addEventListener("click", function(e) {
+        if (!savedName || !savedNumber) {
+          e.preventDefault();
+          alert("Please enter your name and WhatsApp number first.");
+        }
+      });
     });
   </script>
 </body>
