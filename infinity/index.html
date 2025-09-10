@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>Infinity Salon</title>
+  <title>Business Connect</title>
   <style>
     body {
       margin: 0;
@@ -48,7 +48,7 @@
       padding: 12px;
       box-sizing: border-box;
       overflow-y: auto;
-      margin-bottom: 120px; /* space for sticky nav + footer */
+      margin-bottom: 120px;
     }
     .info {
       background: rgba(255,255,255,0.08);
@@ -233,6 +233,9 @@
     let savedNumber = null;
     const targetNumber = "918432019333";
 
+    // ✅ Updated Google Apps Script Web App URL
+    const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxUm7gv52HhBJ_aQzvNX947GEpBEMDCCbbL7h0qdLroBgtOxu4pBrfmmsoWYdrD9egN/exec";
+
     function validatePopup() {
       const name = document.getElementById("popupName").value.trim();
       const num = document.getElementById("popupNumber").value.trim();
@@ -249,14 +252,40 @@
 
       savedName = name;
       savedNumber = num;
+
+      // ✅ Save immediately when Continue is clicked
+      saveToSheet(savedName, savedNumber);
+
+      // Hide popup
       document.getElementById("popupOverlay").style.display = "none";
     }
 
-    document.getElementById("submitBtn").addEventListener("click", function() {
+    function saveToSheet(name, phone) {
+      fetch(WEBAPP_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          name: name,
+          phone: phone,
+          date: new Date().toLocaleDateString(),
+          time: new Date().toLocaleTimeString()
+        })
+      })
+      .then(r => r.json())
+      .then(res => {
+        console.log("✅ Saved to Google Sheet:", res);
+      })
+      .catch(err => {
+        console.error("❌ Save error:", err);
+      });
+    }
+
+    document.getElementById("submitBtn").addEventListener("click", () => {
       if (!savedName || !savedNumber) {
         alert("Please complete popup details first.");
         return;
       }
+
       const msg = `Hello, my name is ${savedName}. My WhatsApp number is ${savedNumber}.`;
       const url = `https://api.whatsapp.com/send?phone=${targetNumber}&text=${encodeURIComponent(msg)}`;
       window.open(url, "_blank");
