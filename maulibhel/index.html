@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Mauli Bhel and Chat</title>
+
+  <!-- ✅ Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: #000;
+      -webkit-tap-highlight-color: transparent;
+      color: #fff;
+    }
+
+    .app {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      max-width: 480px;
+      width: 100%;
+      background: #000;
+      margin: 0 auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Header */
+    .hero {
+      background: linear-gradient(135deg, #b517ff, #ff2dcf);
+      color: #fff;
+      padding: 16px;
+      text-align: center;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+      box-shadow: 0 2px 20px rgba(255,45,207,0.8);
+    }
+    .hero h1 {
+      font-family: "Orbitron", sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin: 0;
+    }
+    .hero p {
+      font-family: "Poppins", sans-serif;
+      margin-top: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #f2f2f2;
+    }
+
+    /* Middle content */
+    .middle {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 12px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      margin-bottom: 120px;
+    }
+    .info {
+      background: rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 13px;
+      line-height: 1.4;
+      border: 1px solid rgba(255,45,207,0.4);
+      box-shadow: 0 0 16px rgba(255,45,207,0.5);
+    }
+    .info strong {
+      font-family: "Orbitron", sans-serif;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #ff4df0;
+    }
+
+    /* Form */
+    .form-card {
+      background: rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 16px rgba(181,23,255,0.5);
+      text-align: center;
+      border: 1px solid rgba(181,23,255,0.4);
+    }
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #b517ff, #ff2dcf);
+      color: #fff;
+      font-family: "Orbitron", sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      box-shadow: 0 0 16px rgba(255,45,207,0.8);
+      transition: 0.3s;
+    }
+    button:hover { transform: scale(1.05); }
+
+    /* Sticky Bottom nav */
+    .bottom-nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 8px 0;
+      border-top: 1px solid rgba(255,45,207,0.4);
+      background: rgba(0,0,0,0.9);
+      backdrop-filter: blur(8px);
+      position: fixed;
+      bottom: 54px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
+      z-index: 1000;
+    }
+    .nav-item {
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: "Poppins", sans-serif;
+    }
+    .circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 3px;
+      font-size: 20px;
+      background: linear-gradient(135deg, #b517ff, #ff2dcf);
+      color: #fff;
+      box-shadow: 0 0 16px rgba(181,23,255,0.7);
+      transition: 0.3s;
+    }
+    .circle:hover { transform: scale(1.1); }
+
+    /* Footer */
+    .footer {
+      height: 54px;
+      background: linear-gradient(135deg, #b517ff, #ff2dcf);
+      color: #fff;
+      text-align: center;
+      font-size: 14px;
+      font-family: "Orbitron", sans-serif;
+      font-weight: 700;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
+      z-index: 999;
+      box-shadow: 0 -2px 20px rgba(255,45,207,0.8);
+    }
+
+    /* Mandatory Popup */
+    #popupOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    #popupBox {
+      background: rgba(0,0,0,0.85);
+      border: 1px solid rgba(255,45,207,0.5);
+      backdrop-filter: blur(12px);
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 24px rgba(255,45,207,0.8);
+      max-width: 90%;
+    }
+    #popupBox h2 {
+      font-family: "Orbitron", sans-serif;
+      font-weight: 700;
+    }
+    #popupBox input {
+      width: 80%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      margin: 10px 0;
+      text-align: center;
+      font-size: 1em;
+      font-family: "Poppins", sans-serif;
+    }
+    #errorMsg { color: #ff4d6d; font-size: 0.9em; font-family: "Poppins", sans-serif; }
+  </style>
+</head>
+<body>
+  <div id="popupOverlay">
+    <div id="popupBox">
+      <h2>Enter Details</h2>
+      <input type="text" id="popupName" placeholder="Your Name">
+      <input type="text" id="popupNumber" placeholder="10-digit WhatsApp Number">
+      <p id="errorMsg"></p>
+      <button onclick="validatePopup()">Continue</button>
+    </div>
+  </div>
+
+  <div class="app">
+    <!-- Header -->
+    <div class="hero">
+      <h1>Mauli Bhel and Chat</h1>
+      <p>Fast support • Trusted reviews • Easy booking</p>
+    </div>
+
+    <!-- Middle content -->
+    <div class="middle">
+      <div class="info">
+        <strong>⭐ Why Reviews Matter?</strong>
+        <p>Your feedback builds trust and helps businesses improve their services.</p>
+      </div>
+      <div class="info">
+        <strong>💬 Why WhatsApp Connect?</strong>
+        <p>Instant replies, easy bookings, and updates on your phone. No waiting, no hassle.</p>
+      </div>
+      <div class="info">
+        <strong>🚀 Why Quick Connect?</strong>
+        <p>One tap to connect, review, or book without wasting time.</p>
+      </div>
+
+      <div class="form-card">
+        <button id="submitBtn">🚀 Connect On WhatsApp</button>
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="bottom-nav">
+      <a class="nav-item review" href="https://maps.app.goo.gl/VEUuqP59EfyKJpCZ6" target="_blank">
+        <div class="circle">⭐</div>Review
+      </a>
+      <a class="nav-item map" href="https://maps.app.goo.gl/VEUuqP59EfyKJpCZ6" target="_blank">
+        <div class="circle">📍</div>Map
+      </a>
+      <a class="nav-item instagram" href="https://instagram.com/yourhandle" target="_blank">
+        <div class="circle">📸</div>Instagram
+      </a>
+      <a class="nav-item call" href="tel:9921429595">
+        <div class="circle">📞</div>Call
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">Visit Once to Experience the Best</div>
+  </div>
+
+  <script>
+    let savedName = null;
+    let savedNumber = null;
+    const targetNumber = "919921429595";
+
+    const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxnip7eU1EKAkHs4jRPAwedlSqheDWx7Z0tDICrbEeposURWHEx3XBMgKSHx8vssp0R/exec";
+
+    function validatePopup() {
+      const name = document.getElementById("popupName").value.trim();
+      const num = document.getElementById("popupNumber").value.trim();
+      const errorMsg = document.getElementById("errorMsg");
+
+      if (!name) {
+        errorMsg.textContent = "Please enter your name.";
+        return;
+      }
+      if (!/^\d{10}$/.test(num)) {
+        errorMsg.textContent = "Enter a valid 10-digit WhatsApp number.";
+        return;
+      }
+
+      savedName = name;
+      savedNumber = num;
+
+      saveToSheet(savedName, savedNumber);
+
+      document.getElementById("popupOverlay").style.display = "none";
+    }
+
+    function saveToSheet(name, phone) {
+      fetch(WEBAPP_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          name: name,
+          phone: phone,
+          date: new Date().toLocaleDateString(),
+          time: new Date().toLocaleTimeString()
+        })
+      })
+      .then(r => r.json())
+      .then(res => {
+        console.log("✅ Saved to Google Sheet:", res);
+      })
+      .catch(err => {
+        console.error("❌ Save error:", err);
+      });
+    }
+
+    document.getElementById("submitBtn").addEventListener("click", () => {
+      if (!savedName || !savedNumber) {
+        alert("Please complete popup details first.");
+        return;
+      }
+
+      const msg = `Hello, my name is ${savedName}. My WhatsApp number is ${savedNumber}.`;
+      const url = `https://api.whatsapp.com/send?phone=${targetNumber}&text=${encodeURIComponent(msg)}`;
+      window.open(url, "_blank");
+    });
+
+    document.querySelectorAll(".bottom-nav a").forEach(link => {
+      link.addEventListener("click", function(e) {
+        if (!savedName || !savedNumber) {
+          e.preventDefault();
+          alert("Please enter your name and WhatsApp number first.");
+        }
+      });
+    });SubmitEvent
+  </script>
+</body>
+</html>
