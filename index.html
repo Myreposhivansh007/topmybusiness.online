@@ -23,6 +23,24 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: flex;
+      width: max-content;
+      animation: marquee 20s linear infinite;
+    }
+    @keyframes fast-marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
+    }
+    .animate-fast-marquee {
+      display: flex;
+      width: max-content;
+      animation: fast-marquee 8s linear infinite;
+    }
   </style>
 </head>
 <body class="bg-animated text-white font-sans">
@@ -34,7 +52,10 @@
     </div>
     <h1 class="text-4xl font-extrabold mb-4 leading-tight drop-shadow-lg">One QR. Every Customer Action.</h1>
     <p class="text-lg opacity-90 mb-10 max-w-xs">Instant WhatsApp, Maps, Reviews, Calls & more — all from one scan.</p>
-    <a href="#features" class="absolute bottom-6 bg-yellow-400 text-black px-10 py-4 rounded-full font-bold text-lg shadow-xl animate-pulse">🚀 Create My Power QR</a>
+    <a href="https://wa.me/918432019333?text=I%20am%20interested%20in%20Power%20QR" 
+       class="absolute bottom-6 bg-yellow-400 text-black px-10 py-4 rounded-full font-bold text-lg shadow-xl animate-pulse">
+       🚀 Create My Power QR
+    </a>
   </section>
 
   <!-- Features Carousel -->
@@ -106,10 +127,105 @@
     <a href="https://wa.me/918432019333" class="bg-yellow-400 text-black px-10 py-4 rounded-full font-bold text-lg shadow-xl animate-glow">💬 Chat on WhatsApp</a>
   </section>
 
+  <!-- Success Metrics Section -->
+  <section class="bg-gray-900 text-white py-16 px-6">
+    <h2 class="text-3xl font-bold text-center mb-10">🚀 Average Businesses Achieve With Us</h2>
+    <div class="overflow-hidden relative">
+      <div class="flex space-x-6 animate-marquee">
+        <!-- Card 1 -->
+        <div class="shrink-0 w-80 bg-gradient-to-br from-green-500 to-emerald-700 rounded-3xl p-8 shadow-2xl text-center">
+          <h3 class="text-4xl font-extrabold mb-2">10X</h3>
+          <p class="text-lg">Customers in just 6 months</p>
+        </div>
+        <!-- Card 2 -->
+        <div class="shrink-0 w-80 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-3xl p-8 shadow-2xl text-center">
+          <h3 class="text-4xl font-extrabold mb-2">3X</h3>
+          <p class="text-lg">Profit in 4 months</p>
+        </div>
+        <!-- Card 3 -->
+        <div class="shrink-0 w-80 bg-gradient-to-br from-pink-500 to-rose-700 rounded-3xl p-8 shadow-2xl text-center">
+          <h3 class="text-4xl font-extrabold mb-2">100+</h3>
+          <p class="text-lg">New reviews every month</p>
+        </div>
+        <!-- Repeat for smooth loop -->
+        <div class="shrink-0 w-80 bg-gradient-to-br from-green-500 to-emerald-700 rounded-3xl p-8 shadow-2xl text-center">
+          <h3 class="text-4xl font-extrabold mb-2">10X</h3>
+          <p class="text-lg">Customers in just 6 months</p>
+        </div>
+        <div class="shrink-0 w-80 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-3xl p-8 shadow-2xl text-center">
+          <h3 class="text-4xl font-extrabold mb-2">3X</h3>
+          <p class="text-lg">Profit in 4 months</p>
+        </div>
+        <div class="shrink-0 w-80 bg-gradient-to-br from-pink-500 to-rose-700 rounded-3xl p-8 shadow-2xl text-center">
+          <h3 class="text-4xl font-extrabold mb-2">100+</h3>
+          <p class="text-lg">New reviews every month</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proud Clients Section -->
+  <section class="bg-white text-gray-900 py-16 px-6">
+    <h2 class="text-3xl font-bold text-center mb-10">🌟 Our Proud Clients</h2>
+    <div class="overflow-hidden relative">
+      <div class="flex space-x-6 animate-fast-marquee">
+        <!-- Client Cards -->
+        <div class="shrink-0 w-80 bg-gradient-to-br from-purple-500 to-indigo-700 rounded-3xl p-8 shadow-xl text-center text-white">
+          <h3 class="text-xl font-bold">Infinity Salon</h3>
+          <p class="opacity-80">Pimple Saudagar</p>
+        </div>
+        <div class="shrink-0 w-80 bg-gradient-to-br from-pink-500 to-rose-700 rounded-3xl p-8 shadow-xl text-center text-white">
+          <h3 class="text-xl font-bold">Pink Apple</h3>
+          <p class="opacity-80">Chinchwad</p>
+        </div>
+        <div class="shrink-0 w-80 bg-gradient-to-br from-green-500 to-emerald-700 rounded-3xl p-8 shadow-xl text-center text-white">
+          <h3 class="text-xl font-bold">JBP</h3>
+          <p class="opacity-80">Sanghavi</p>
+        </div>
+        <div class="shrink-0 w-80 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-3xl p-8 shadow-xl text-center text-white">
+          <h3 class="text-xl font-bold">MBS</h3>
+          <p class="opacity-80">Wakad</p>
+        </div>
+        <div class="shrink-0 w-80 bg-gradient-to-br from-indigo-500 to-blue-700 rounded-3xl p-8 shadow-xl text-center text-white">
+          <h3 class="text-xl font-bold">Relax Salon</h3>
+          <p class="opacity-80">Pimple Saudagar</p>
+        </div>
+        <!-- Repeat for smooth infinite loop -->
+        <div class="shrink-0 w-80 bg-gradient-to-br from-purple-500 to-indigo-700 rounded-3xl p-8 shadow-xl text-center text-white">
+          <h3 class="text-xl font-bold">Infinity Salon</h3>
+          <p class="opacity-80">Pimple Saudagar</p>
+        </div>
+        <div class="shrink-0 w-80 bg-gradient-to-br from-pink-500 to-rose-700 rounded-3xl p-8 shadow-xl text-center text-white">
+          <h3 class="text-xl font-bold">Pink Apple</h3>
+          <p class="opacity-80">Chinchwad</p>
+        </div>
+        <div class="shrink-0 w-80 bg-gradient-to-br from-green-500 to-emerald-700 rounded-3xl p-8 shadow-xl text-center text-white">
+          <h3 class="text-xl font-bold">JBP</h3>
+          <p class="opacity-80">Sanghavi</p>
+        </div>
+        <div class="shrink-0 w-80 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-3xl p-8 shadow-xl text-center text-white">
+          <h3 class="text-xl font-bold">MBS</h3>
+          <p class="opacity-80">Wakad</p>
+        </div>
+        <div class="shrink-0 w-80 bg-gradient-to-br from-indigo-500 to-blue-700 rounded-3xl p-8 shadow-xl text-center text-white">
+          <h3 class="text-xl font-bold">Relax Salon</h3>
+          <p class="opacity-80">Pimple Saudagar</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Floating WhatsApp Button -->
   <a href="https://wa.me/918432019333" class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-2xl animate-bounce">
     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8a9 9 0 100-18 9 9 0 000 18z" />
+    </svg>
+  </a>
+
+  <!-- Floating Call Button -->
+  <a href="tel:8432019333" class="fixed bottom-6 left-6 bg-blue-500 text-white p-4 rounded-full shadow-2xl animate-bounce">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h2l3.6 7.59-1.35 2.44A2 2 0 009 18h6a2 2 0 001.75-1.03l3.57-6.49A1 1 0 0019 9H6" />
     </svg>
   </a>
 
