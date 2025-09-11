@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Banana Paints</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .app {
+      max-width: 420px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* 🎉 Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #00bcd4, #00e5ff);
+      color: white;
+      padding: 1px 5px 50px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero h1 {
+      font-size: 28px;
+      margin: 0;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+    .hero p {
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+
+    /* 🌊 Curved Bottom Pattern */
+    .hero-curve {
+      position: absolute;
+      bottom: -15px;
+      left: 0;
+      width: 100%;
+      line-height: 0;
+    }
+    .hero-curve svg {
+      display: block;
+      width: 100%;
+      height: 100px;
+    }
+
+    /* Info Cards */
+    .info-card {
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+    .info-card strong {
+      font-weight: 600;
+      color: #00bcd4;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .info-card p {
+      margin: 0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* 🎯 CTA Button */
+    .cta-btn {
+      display: block;
+      width: 100%;
+      margin-top: 15px;
+      padding: 14px;
+      background: #00c6a2;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .cta-btn:hover {
+      background: #00a885;
+    }
+
+    /* 🔗 Bottom Navigation */
+    .bottom-nav {
+      display: flex;
+      justify-content: space-around;
+      background: white;
+      padding: 12px 0;
+      border-radius: 16px;
+      margin-top: 15px;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+    }
+    .bottom-nav a {
+      text-decoration: none;
+      color: #555;
+      font-size: 12px;
+      text-align: center;
+    }
+    .bottom-nav i {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 4px;
+      color: #00bcd4;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 13px;
+      color: #888;
+    }
+
+    /* Popup Overlay */
+    #popupOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      z-index: 1000;
+      animation: fadeIn 0.4s ease;
+    }
+
+    /* Popup Box (Bottom Sheet Style) */
+    #popupBox {
+      background: #fff;
+      border-radius: 16px 16px 0 0;
+      padding: 20px;
+      text-align: center;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+      animation: slideUp 0.4s ease;
+      box-sizing: border-box;
+    }
+    #popupBox h2 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: #00bcd4;
+    }
+    #popupBox input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      margin: 8px 0;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    #popupBox button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #00c6a2;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.3s;
+      box-sizing: border-box;
+    }
+    #popupBox button:hover {
+      background: #00a885;
+    }
+    #errorMsg {
+      color: #e63946;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Popup -->
+  <div id="popupOverlay">
+    <div id="popupBox">
+      <h2>Enter Your Details</h2>
+      <input type="text" id="popupName" placeholder="Your Name">
+      <input type="text" id="popupNumber" placeholder="10-digit WhatsApp Number">
+      <p id="errorMsg"></p>
+      <button onclick="validatePopup()">Continue</button>
+    </div>
+  </div>
+
+  <div class="app">
+    <!-- Hero -->
+    <div class="hero">
+      <h1>Banana Paints</h1>
+      <p>Welcome! We’d love to hear your feedback—your review helps us serve you better.</p>
+      <!-- 🌊 Curved Bottom -->
+      <div class="hero-curve">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
+          <path fill="#fff" fill-opacity="1" d="M0,64 C480,160 960,0 1440,96 L1440,120 L0,120 Z"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Info Cards -->
+    <div class="info-card">
+      <strong><i class="fa-solid fa-star"></i> Why Reviews Matter?</strong>
+      <p>Your feedback builds trust and helps businesses improve their services.</p>
+    </div>
+    <div class="info-card">
+      <strong><i class="fa-brands fa-whatsapp"></i> Why WhatsApp Connect?</strong>
+      <p>Instant replies, easy bookings, and updates on your phone. No waiting, no hassle.</p>
+    </div>
+    <div class="info-card">
+      <strong><i class="fa-solid fa-bolt"></i> Why Quick Connect?</strong>
+      <p>One tap to connect, review, or book without wasting time.</p>
+    </div>
+
+    <!-- CTA -->
+    <button id="submitBtn" class="cta-btn"><i class="fa-brands fa-whatsapp"></i> Connect on WhatsApp</button>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+      <a href="https://maps.app.goo.gl/VEUuqP59EfyKJpCZ6" target="_blank">
+        <i class="fa-solid fa-star"></i> Review
+      </a>
+      <a href="https://maps.app.goo.gl/VEUuqP59EfyKJpCZ6" target="_blank">
+        <i class="fa-solid fa-location-dot"></i> Map
+      </a>
+      <a href="https://instagram.com/yourhandle" target="_blank">
+        <i class="fa-brands fa-instagram"></i> Instagram
+      </a>
+      <a href="tel:9921429595">
+        <i class="fa-solid fa-phone"></i> Call
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">Powered by Topmybusiness.online </div>
+  </div>
+
+  <script>
+    let savedName = null;
+    let savedNumber = null;
+    const targetNumber = "919921429595";
+
+    const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxnip7eU1EKAkHs4jRPAwedlSqheDWx7Z0tDICrbEeposURWHEx3XBMgKSHx8vssp0R/exec";
+
+    function validatePopup() {
+      const name = document.getElementById("popupName").value.trim();
+      const num = document.getElementById("popupNumber").value.trim();
+      const errorMsg = document.getElementById("errorMsg");
+
+      if (!name) {
+        errorMsg.textContent = "Please enter your name.";
+        return;
+      }
+      if (!/^\d{10}$/.test(num)) {
+        errorMsg.textContent = "Enter a valid 10-digit WhatsApp number.";
+        return;
+      }
+
+      savedName = name;
+      savedNumber = num;
+      saveToSheet(savedName, savedNumber);
+      document.getElementById("popupOverlay").style.display = "none";
+    }
+
+    function saveToSheet(name, phone) {
+      fetch(WEBAPP_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          name: name,
+          phone: phone,
+          date: new Date().toLocaleDateString(),
+          time: new Date().toLocaleTimeString()
+        })
+      })
+      .then(r => r.json())
+      .then(res => console.log("✅ Saved to Google Sheet:", res))
+      .catch(err => console.error("❌ Save error:", err));
+    }
+
+    document.getElementById("submitBtn").addEventListener("click", () => {
+      if (!savedName || !savedNumber) {
+        alert("Please complete popup details first.");
+        return;
+      }
+      const msg = `Hello, my name is ${savedName}. My WhatsApp number is ${savedNumber}.`;
+      const url = `https://api.whatsapp.com/send?phone=${targetNumber}&text=${encodeURIComponent(msg)}`;
+      window.open(url, "_blank");
+    });
+
+    document.querySelectorAll(".bottom-nav a").forEach(link => {
+      link.addEventListener("click", function(e) {
+        if (!savedName || !savedNumber) {
+          e.preventDefault();
+          alert("Please enter your name and WhatsApp number first.");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
