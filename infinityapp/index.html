@@ -1,672 +1,757 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <title>Infinity Salon – App-Style Web</title>
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <meta name="theme-color" content="#ec4899"/>
-
-  <style>
-    /* App-like safe area */
-    body { background: #fff7fb; }
-    .glass {
-      backdrop-filter: saturate(180%) blur(10px);
-      background: rgba(255, 255, 255, 0.65);
-    }
-    /* Auto-slide horizontal ticker */
-    .ticker {
-      position: relative;
-      overflow: hidden;
-      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    }
-    .ticker-track {
-      display: flex;
-      gap: .75rem;
-      width: max-content;
-      animation: scroll 18s linear infinite;
-    }
-    @keyframes scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-    /* Bottom sheet */
-    .sheet {
-      transition: transform .35s ease, opacity .25s ease;
-      transform: translateY(100%);
-      opacity: 0;
-    }
-    .sheet.open {
-      transform: translateY(0%);
-      opacity: 1;
-    }
-    /* Tap highlight removal for mobile feel */
-    * { -webkit-tap-highlight-color: transparent; }
-  </style>
-</head>
-<body class="min-h-screen text-gray-800">
-
-  <!-- App Bar -->
-  <header class="sticky top-0 z-40 bg-gradient-to-r from-pink-500 to-fuchsia-500 text-white">
-    <div class="max-w-md mx-auto px-4 pt-8 pb-4">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <!-- Simple logo -->
-          <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center shadow">
-            <span class="text-xl font-bold">∞</span>
-          </div>
-          <div>
-            <h1 class="text-2xl font-extrabold leading-tight">Infinity Salon</h1>
-            <p class="text-white/80 text-sm">Pimple Saudagar · Pune</p>
-          </div>
-        </div>
-        <button id="btnCall" class="rounded-2xl px-3 py-2 bg-white/20 text-white text-sm shadow">
-          Call
-        </button>
-      </div>
-
-      <!-- Auto-sliding horizontal banner (chips) -->
-      <div class="ticker mt-4">
-        <div class="ticker-track" id="tickerTrack">
-          <!-- duplicate group twice for seamless loop -->
-          <div class="flex gap-3 pr-3">
-            <span class="px-3 py-1 rounded-full bg-white/20 whitespace-nowrap">⭐ 400+ 5 Star Reviews</span>
-            <span class="px-3 py-1 rounded-full bg-white/20 whitespace-nowrap">👥 40,000+ Instagram Family</span>
-            <span class="px-3 py-1 rounded-full bg-white/20 whitespace-nowrap">🏆 Top Employee Award: Mr. Chand</span>
-            <span class="px-3 py-1 rounded-full bg-white/20 whitespace-nowrap">💐 Top Ladies Employee Award: Swapnali Kharat Madam</span>
-          </div>
-          <div class="flex gap-3 pr-3">
-            <span class="px-3 py-1 rounded-full bg-white/20 whitespace-nowrap">⭐ 400+ 5 Star Reviews</span>
-            <span class="px-3 py-1 rounded-full bg-white/20 whitespace-nowrap">👥 40,000+ Instagram Family</span>
-            <span class="px-3 py-1 rounded-full bg-white/20 whitespace-nowrap">🏆 Top Employee Award: Chand</span>
-            <span class="px-3 py-1 rounded-full bg-white/20 whitespace-nowrap">💐 Top Ladies Employee: Swapnali Kharat Madam</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- Content -->
-  <main class="max-w-md mx-auto px-4 pb-28">
-
-    <!-- Welcome card -->
-    <section class="mt-6">
-      <div class="glass rounded-3xl p-5 shadow">
-        <p class="text-sm text-gray-600">🌸 Dullness ends where Infinity Salon begins.💖 We don’t just style — we elevate your spirit.✨ Radiance, confidence, luxury — that’s the Infinity promise.</p>
-      </div>
-    </section>
-
-    <!-- Quick Actions Grid -->
-    <section class="mt-5 grid grid-cols-2 gap-4">
-      <!-- Appointment Booking -->
-      <a href="https://view-prices-discounts-appointments.github.io/InfinitySalon/"
-         target="_blank" rel="noopener"
-         class="rounded-3xl p-4 bg-white shadow border border-pink-100 active:scale-[.98] transition">
-        <div class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-2xl bg-pink-100 flex items-center justify-center">💬</div>
-          <div>
-            <h3 class="font-semibold">Appointment Booking</h3>
-            <p class="text-xs text-gray-500">Quick Appointment</p>
-          </div>
-        </div>
-      </a>
-
-      <!-- Ratecard -->
-      <button id="btnRatecard"
-              class="rounded-3xl p-4 bg-white shadow border border-pink-100 active:scale-[.98] transition w-full text-left">
-        <div class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-2xl bg-pink-100 flex items-center justify-center">💳</div>
-          <div>
-            <h3 class="font-semibold">Ratecard</h3>
-            <p class="text-xs text-gray-500">Men · Women · Kids</p>
-          </div>
-        </div>
-      </button>
-
-      <!-- Location -->
-      <a href="https://maps.google.com/?q=Infinity+Salon,+Shop+number+9,+Strling+Blooms,+Godambe+Corner,+Pimple+Saudagar,+Pune+411017"
-         target="_blank" rel="noopener"
-         class="rounded-3xl p-4 bg-white shadow border border-pink-100 active:scale-[.98] transition">
-        <div class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-2xl bg-pink-100 flex items-center justify-center">📍</div>
-          <div>
-            <h3 class="font-semibold">Location</h3>
-            <p class="text-xs text-gray-500">Get directions</p>
-          </div>
-        </div>
-      </a>
-
-      <!-- Give Review -->
-      <a href="https://maps.app.goo.gl/PD34TwrfvQ1Dm7ya8" target="_blank" rel="noopener"
-         class="rounded-3xl p-4 bg-white shadow border border-pink-100 active:scale-[.98] transition">
-        <div class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-2xl bg-pink-100 flex items-center justify-center">⭐</div>
-          <div>
-            <h3 class="font-semibold">Give Review</h3>
-            <p class="text-xs text-gray-500">Google Reviews</p>
-          </div>
-        </div>
-      </a>
-
-      <!-- Instagram Reels -->
-      <a href="https://www.instagram.com/infinitypune" target="_blank" rel="noopener"
-         class="rounded-3xl p-4 bg-white shadow border border-pink-100 active:scale-[.98] transition">
-        <div class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-2xl bg-pink-100 flex items-center justify-center">🎬</div>
-          <div>
-            <h3 class="font-semibold">Instagram Reels</h3>
-            <p class="text-xs text-gray-500">@infinitypune</p>
-          </div>
-        </div>
-      </a>
-
-      <!-- 24x7 Owner's Support -->
-      <div class="flex gap-3">
-        <a href="tel:+919405411217"
-           class="flex-1 rounded-3xl p-4 bg-white shadow border border-pink-100 active:scale-[.98] transition">
-          <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-2xl bg-pink-100 flex items-center justify-center">📞</div>
-            <div>
-              <h3 class="font-semibold">24×7 Owner’s Support</h3>
-              <p class="text-xs text-gray-500">Click to call</p>
-            </div>
-          </div>
-        </a>
-        <a href="https://wa.me/918432019333?text=Hello%20Infinity%20Salon%2C%20I%20need%20support."
-           target="_blank" rel="noopener"
-           class="w-16 rounded-3xl p-4 bg-white shadow border border-pink-100 active:scale-[.98] transition flex items-center justify-center">
-          💬
-        </a>
-      </div>
-    </section>
-
-  
-
-
-
-<!-- Hours / Info Card -->
-<section class="mt-6">
-  <div class="rounded-3xl p-6 bg-gradient-to-br from-pink-50 via-white to-pink-100 shadow-lg border border-pink-200">
-    
-    <!-- Heading -->
-    <h4 class="font-semibold text-lg flex items-center gap-2 text-pink-600">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2C8.134 2 5 5.134 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7z" />
-      </svg>
-      Studio Info
-    </h4>
-
-    <!-- Address -->
-    <p class="text-sm text-gray-700 mt-2 leading-relaxed">
-      Shop No. 9, Strling Blooms, Godambe Corner, <br/> 
-      Pimple Saudagar, Pune 411017
-    </p>
-
-    <!-- Info Grid -->
-    <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
-      <div class="flex items-center gap-2 rounded-2xl bg-white px-3 py-2 shadow-sm">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        Open: 10:00 AM – 10:00 PM
-      </div>
-      <div class="flex items-center gap-2 rounded-2xl bg-white px-3 py-2 shadow-sm">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-        </svg>
-        Walk-ins Welcome
-      </div>
-    </div>
-
-    <!-- Button -->
-    <div class="mt-5">
-      <a href="https://maps.app.goo.gl/PD34TwrfvQ1Dm7ya8" 
-         class="inline-block w-full text-center rounded-2xl bg-pink-500 text-white py-2 text-sm font-medium shadow hover:bg-pink-600 transition">
-        📍 Get Directions
-      </a>
-    </div>
-  </div>
-</section>
-
-
-
-
-
-
-
-
-<!-- Floating Footer (like mobile navbar) -->
-<footer class="fixed bottom-0 left-0 right-0 z-40">
-  <div class="max-w-md mx-auto px-4 pb-6">
-    <div class="rounded-3xl shadow-lg border border-white/20
-                bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">
-      <div class="flex items-center justify-between px-4 py-3 text-sm text-white">
-        
-        <!-- Rewards -->
-        <a href="https://view-prices-discounts-appointments.github.io/ScratchWin/"
-           target="_blank" rel="noopener"
-           class="flex flex-col items-center hover:opacity-80 transition">
-          <span class="text-2xl">🎁</span>
-          <span class="mt-1">Rewards</span>
-        </a>
-
-        <!-- Prime -->
-        <a href="https://chat.whatsapp.com/KiQuGPIIFrpGEnzUjCWzSV?mode=ac_t"
-           target="_blank" rel="noopener"
-           class="flex flex-col items-center hover:opacity-80 transition">
-          <span class="text-2xl">👑</span>
-          <span class="mt-1">Prime</span>
-        </a>
-
-<!-- Offers -->
-<a href="https://view-prices-discounts-appointments.github.io/Prime-Members/"
-   target="_blank" rel="noopener"
-   class="flex flex-col items-center hover:opacity-80 transition text-2xl">
-  💎
-  <span class="mt-1 text-base">Offers</span>
-</a>
-
-
-        <!-- Tips -->
-        <a href="https://www.instagram.com/infinitypune"
-           target="_blank" rel="noopener"
-           class="flex flex-col items-center hover:opacity-80 transition">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.868v4.264a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
-          </svg>
-          <span class="mt-1">Tips</span>
-        </a>
-
-        <!-- WhatsApp -->
-        <a href="https://api.whatsapp.com/send?phone=918432019333"
-           target="_blank" rel="noopener"
-           class="flex flex-col items-center hover:opacity-80 transition">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M16.862 13.487a4.978 4.978 0 01-2.175-.528.983.983 0 00-1.052.091l-.65.489a7.033 7.033 0 01-3.196-3.196l.49-.65a.983.983 0 00.09-1.052 4.978 4.978 0 01-.528-2.175.982.982 0 00-.982-.982H7.34c-.543 0-.982.44-.982.982 0 5.963 4.84 10.803 10.803 10.803.543 0 .982-.44.982-.982v-1.518c0-.543-.44-.982-.982-.982z"/>
-          </svg>
-          <span class="mt-1">WhatsApp</span>
-        </a>
-      </div>
-    </div>
-  </div>
-</footer>
-
-
-
-
-
-
-
-
-
-
-  <!-- Bottom Sheet: Ratecard -->
-  <div id="sheetOverlay" class="fixed inset-0 bg-black/40 hidden"></div>
-  <aside id="rateSheet" class="sheet fixed left-0 right-0 bottom-0 bg-white rounded-t-3xl shadow-2xl z-50">
-    <div class="max-w-md mx-auto">
-      <div class="p-4 pt-6">
-        <div class="mx-auto w-12 h-1.5 rounded-full bg-gray-200 mb-3"></div>
-        <div class="flex items-center justify-between">
-          <h3 class="text-lg font-semibold">Ratecard</h3>
-          <button id="btnCloseSheet" class="rounded-full px-3 py-1 bg-gray-100">Close</button>
-        </div>
-      </div>
-      <div class="px-4 pb-6">
-       
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Salon Ratecard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="p-4 bg-gray-50">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Infinity Salon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
-  <!-- Categories -->
-  <div class="flex gap-2 overflow-x-auto pb-2">
-    <button onclick="showCategory('men')" id="btn-men"
-      class="px-3 py-1.5 rounded-full bg-pink-100 text-pink-700 text-sm font-medium">Men</button>
-    <button onclick="showCategory('women')" id="btn-women"
-      class="px-3 py-1.5 rounded-full bg-gray-100 text-gray-700 text-sm font-medium">Women</button>
-    <button onclick="showCategory('kids')" id="btn-kids"
-      class="px-3 py-1.5 rounded-full bg-gray-100 text-gray-700 text-sm font-medium">Kids</button>
-  </div>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@400;500;600&display=swap');
 
-  <!-- Items List -->
-  <div class="mt-3 max-h-80 overflow-y-auto">
-    <ul id="itemsList" class="space-y-2 text-sm"></ul>
-  </div>
-
-
-  <!-- Cart Summary -->
-  <div id="cartSummary" class="mt-4 p-3 bg-white rounded-lg shadow text-sm hidden">
-    <p class="font-medium">Summary</p>
-    <p>Total: <span id="total" class="font-semibold">₹0</span></p>
-    <p>Discount : <span id="discount" class="font-semibold text-green-600">₹0</span></p>
-    <p>Final Amount: <span id="final" class="font-bold text-pink-700">₹0</span></p>
-  </div>
-
-  <!-- Single Book Button -->
-  <div class="mt-4">
-    <button onclick="sendToWhatsApp()" 
-      class="w-full py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow">
-      Book from Ratecard
-    </button>
-  </div>
-
-  <script>
-    // Service data
-    const services = {
-      men: [
-  { name: "Haircut + Hairwash + Facewash", desc: "Men’s Grooming", price: 149 },
-  { name: "Beard + Beardo Oil + Facewash", desc: "Men’s Grooming", price: 99 },
-  { name: "Beard + Scrub + Beard Oil + Raaga Detan", desc: "Men’s Grooming", price: 199 },
-  { 
-    name: "Men (Basic Requirement Package)", 
-    desc: "Haircut + Beard + Head Massage + Raaga Detan", 
-    price: 299 
-  },
-  { 
-    name: "Richfeel Men (Most Popular Package)", 
-    desc: "Haircut + Beard + Head Massage + Raaga Detan + Facial (Steam) + Hair Mask + Hairwash + Back Massage + Nose Peel Off + Hair Setting", 
-    price: 699 
-  },
-  { 
-    name: "Oxylife Men", 
-    desc: "Haircut + Beard + Head Massage + Raaga Detan + Facial (Steam) + Hair Mask + Hairwash + Back Massage + Nose Peel Off + Hair Setting", 
-    price: 999 
-  },
-  { 
-    name: "O3+ Professional Men", 
-    desc: "Haircut + Beard + Head Massage + Raaga Detan + Facial (Steam) + Hair Mask + Hairwash + Back Massage + Nose Peel Off + Hair Setting", 
-    price: 2999 
-  }
-]
-,
-      women: [
-  // HAIR
-  { name: "Hair Cut", desc: "Women’s Hair Service", price: 250 },
-  { name: "Hair Cut + Hairwash + Bluedry", desc: "Women’s Hair Service", price: 350 },
-  { name: "Normal Hair Spa", desc: "Women’s Hair Spa", price: 1000 },
-  { name: "Dandruff Treatment", desc: "Women’s Hair Spa", price: 500 },
-  { name: "Protein Hair Spa", desc: "Women’s Hair Spa", price: 1500 },
-
-  // BEAUTY
-  { name: "Threading", desc: "Women’s Beauty Care", price: 30 },
-  { name: "Upper Lip", desc: "Women’s Beauty Care", price: 10 },
-  { name: "Forehead", desc: "Women’s Beauty Care", price: 10 },
-  { name: "Chin", desc: "Women’s Beauty Care", price: 10 },
-  { name: "Side Lock", desc: "Women’s Beauty Care", price: 70 },
-  { name: "Full Face", desc: "Women’s Beauty Care", price: 150 },
-
-  // D-TAN
-  { name: "Raga D-tan", desc: "Women’s D-tan", price: 350 },
-  { name: "Tan Eriger D-tan", desc: "Women’s D-tan", price: 550 },
-  { name: "Full Body D-tan", desc: "Women’s D-tan", price: 1500 },
-
-  // BLEACH
-  { name: "Face Bleach", desc: "Women’s Bleach", price: 350 },
-  { name: "Full Body Bleach", desc: "Women’s Bleach", price: 1500 },
-
-  // CLEANUP
-  { name: "Fruit Cleanup", desc: "Women’s Cleanup", price: 350 },
-  { name: "Coffee Can Cleanup", desc: "Women’s Cleanup", price: 350 },
-
-  // POLISHING & MASSAGE
-  { name: "Full Body Polishing", desc: "Women’s Polishing", price: 1900 },
-  { name: "Full Body Massage", desc: "Women’s Massage", price: 1000 },
-
-  // TREATMENT
-  { name: "Straightening", desc: "Hair Treatment", price: 3000 },
-  { name: "Smoothing", desc: "Hair Treatment", price: 2500 },
-  { name: "Keratin", desc: "Hair Treatment", price: 4000 },
-  { name: "Botox", desc: "Hair Treatment", price: 6000 },
-  { name: "Nanoplastia", desc: "Hair Treatment", price: 3000 },
-
-  // WAXING (Normal)
-  { name: "Full Hands Normal Waxing", desc: "Women’s Waxing", price: 150 },
-  { name: "Under Arms Waxing", desc: "Women’s Waxing", price: 80 },
-  { name: "Full Leg Waxing", desc: "Women’s Waxing", price: 500 },
-  { name: "Half Leg Waxing", desc: "Women’s Waxing", price: 250 },
-
-  // WAXING (RICA)
-  { name: "Rica Full Hands Waxing", desc: "Women’s Waxing", price: 350 },
-  { name: "Rica Under Arms Waxing", desc: "Women’s Waxing", price: 100 },
-  { name: "Rica Full Leg Waxing", desc: "Women’s Waxing", price: 750 },
-  { name: "Rica Half Leg Waxing", desc: "Women’s Waxing", price: 350 },
-  { name: "Full Body Waxing Honey", desc: "Women’s Waxing", price: 2000 },
-  { name: "Rica Full Body Waxing", desc: "Women’s Waxing", price: 2500 },
-  { name: "Bikini Waxing Rica", desc: "Women’s Waxing", price: 1000 },
-  { name: "Brazilian Waxing", desc: "Women’s Waxing", price: 1000 },
-  { name: "Peel Off Waxing", desc: "Women’s Waxing", price: 1500 },
-
-  // FACIAL
-  { name: "Hydra Facial", desc: "Women’s Facial", price: 2500 },
-  { name: "Sara Diamond Facial", desc: "Women’s Facial", price: 1500 },
-  { name: "O3 Facial", desc: "Women’s Facial", price: 2000 },
-  { name: "Rica Feel Facial", desc: "Women’s Facial", price: 1000 },
-  { name: "Lotass Facial", desc: "Women’s Facial", price: 1000 },
-  { name: "Lotass Diamond Facial", desc: "Women’s Facial", price: 1500 },
-  { name: "Mohtarma Facial 24k Gold", desc: "Women’s Facial", price: 1000 },
-  { name: "Mix Fruit Mohtarma Facial", desc: "Women’s Facial", price: 550 },
-  { name: "Wine Facial", desc: "Women’s Facial", price: 1000 },
-  { name: "Rice Feel Facial", desc: "Women’s Facial", price: 1000 },
-
-  // HAIR COLOUR
-  { name: "Root Touch Up", desc: "Hair Colouring", price: 1300 },
-  { name: "Global Hair Colour", desc: "Hair Colouring", price: 3000 },
-  { name: "Fashion Global Colour", desc: "Hair Colouring", price: 4000 },
-  { name: "Balayage Colour", desc: "Hair Colouring", price: 4000 },
-  { name: "Ombre Colour", desc: "Hair Colouring", price: 2500 },
-  { name: "Global Highlights", desc: "Hair Colouring", price: 4000 },
-  { name: "Highlights (1 Strip)", desc: "Hair Colouring", price: 350 },
-  { name: "Funky Colour", desc: "Hair Colouring", price: 550 },
-
-  // SPECIAL
-  { name: "Bridal Makeup", desc: "Special Occasion", price: 9999 }
-]
-
-,
-      kids: [
-        { name: "Kids Haircut", desc: "Fun & Gentle", price: 99 },
-        { name: "Kids Styling", desc: "Trendy Looks", price: 149 }
-      ]
-    };
-
-    // Selected items
-    let selectedItems = [];
-
-    // Render items
-    function showCategory(category) {
-      const list = document.getElementById("itemsList");
-      list.innerHTML = "";
-
-      services[category].forEach((item, index) => {
-        const id = `${category}-${index}`;
-        list.innerHTML += `
-          <li id="${id}" onclick="toggleItem('${id}','${item.name}',${item.price})"
-              class="flex items-center justify-between bg-pink-50 rounded-2xl p-3 cursor-pointer transition">
-            <div>
-              <p class="font-medium">${item.name}</p>
-              <p class="text-gray-500 text-xs">${item.desc}</p>
-            </div>
-            <span class="font-semibold">₹${item.price}</span>
-          </li>
-        `;
-      });
-
-      // Update button highlight
-      document.querySelectorAll("button").forEach(btn => {
-        if (btn.id.startsWith("btn-")) {
-          btn.classList.remove("bg-pink-100", "text-pink-700");
-          btn.classList.add("bg-gray-100", "text-gray-700");
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(120deg, #ffe4ec, #fbcfe8, #f8bbd0, #f48fb1);
+            background-size: 400% 400%;
+            animation: gradientMove 20s ease infinite;
+            color: #4a148c;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
         }
-      });
-      document.getElementById("btn-" + category).classList.add("bg-pink-100", "text-pink-700");
-      document.getElementById("btn-" + category).classList.remove("bg-gray-100", "text-gray-700");
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: #be185d;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        input,
+        select,
+        .custom-select-trigger {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #6b0f3c;
+            border: 1px solid #f48fb1;
+            transition: all 0.3s ease;
+            min-height: 48px;
+            border-radius: 0.5rem;
+        }
+
+        input:focus,
+        .custom-select-trigger:hover {
+            background-color: #fff;
+            border-color: #ec4899;
+            box-shadow: 0 0 10px #f8bbd0;
+            outline: none;
+        }
+
+        .custom-select-wrapper {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .custom-select-trigger {
+            padding: 0.75rem 1rem;
+            border: 1px solid #f48fb1;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .custom-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 50;
+            width: 100%;
+            max-height: 250px;
+            overflow-y: auto;
+            background-color: white;
+            border: 1px solid #f48fb1;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 0.25rem;
+        }
+
+        .custom-option {
+            padding: 0.65rem 1rem;
+            color: #4a148c;
+            border-bottom: 1px solid #ffe4ec;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        . .custom-options::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-options::-webkit-scrollbar-thumb {
+            background-color: #f48fb1;
+            border-radius: 4px;
+        }
+
+        .custom-option-group-label {
+            font-weight: bold;
+            color: #ad1457;
+            background-color: #fff0f5;
+            padding: 0.5rem 1rem;
+            margin-top: 0.5rem;
+            display: block;
+            border-left: 4px solid #ec4899;
+        }
+
+        .custom-option {
+            padding: 0.65rem 1rem;
+            color: #4a148c;
+            border-bottom: 1px solid #ffe4ec;
+        }
+
+        .custom-option:hover {
+            background-color: #ffeef5;
+        }
+
+        .add-service-btn {
+            background-color: #10b981;
+            color: white;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            margin-left: 0.5rem;
+            padding: 0;
+            /* make sure there's no padding affecting shape */
+            font-size: 18px;
+            line-height: 1;
+        }
+
+
+        .add-service-btn:hover {
+            background-color: #059669;
+            transform: scale(1.1);
+        }
+
+        .add-service-btn.added {
+            background-color: #d1d5db;
+            cursor: not-allowed;
+        }
+
+        button {
+            transition: all 0.3s ease;
+            min-height: 48px;
+            font-weight: 600;
+            border-radius: 0.5rem;
+        }
+
+        button:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 14px rgba(233, 30, 99, 0.4);
+        }
+
+        ::placeholder {
+            color: #ad1457;
+        }
+
+        .glass-card {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 240, 250, 0.5);
+            border-radius: 1.5rem;
+            box-shadow: 0 0 40px rgba(240, 98, 146, 0.3), 0 0 80px rgba(255, 204, 229, 0.2);
+            padding: 2rem;
+            border: 1px solid rgba(240, 98, 146, 0.3);
+        }
+
+        .pointer {
+            border-bottom: 24px solid #e91e63;
+        }
+
+        .wheel {
+            border: 6px solid #e91e63;
+            box-shadow: 0 0 45px rgba(233, 30, 99, 0.6), 0 0 90px rgba(240, 98, 146, 0.4);
+        }
+
+        #totalBox {
+            color: #b91c1c;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+        }
+
+        .cart-plus-icon {
+            font-size: 1.25rem;
+            color: #16a34a;
+            font-weight: 900;
+            margin-right: 0.3rem;
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 0.8rem;
+            margin-top: -0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        #wheelContainer {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: 6px solid #e91e63;
+  position: relative;
+  overflow: hidden;
+  margin: auto;
+}
+
+.slice {
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0% 0%;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.pointer {
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 24px solid #e91e63;
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-4">
+
+     <div class="w-full max-w-md bg-white border-4 border-pink-900 rounded-2xl shadow-lg p-6">
+          <h1 class="text-4xl text-center text-pink-700 mb-2 tracking-wide"
+            style="font-family: 'Playfair Display', serif;">∞ INFINITY SALON</h1>
+          <p class="text-center text-sm italic mb-6 text-pink-700">Elegance Redefined</p>
+
+            <input id="customerName" type="text" placeholder="Your Name"
+            class="w-full p-3 border border-pink-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-pink-300">
+            <span id="nameError" class="error-message hidden"></span>
+
+            <input id="customerPhone" type="tel" placeholder="WhatsApp Number"
+            class="w-full p-3 border border-pink-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-pink-300"
+            maxlength="10">
+            <span id="phoneError" class="error-message hidden"></span>
+
+            <label for="appointmentDate" class="text-sm text-pink-900 font-medium mb-1 block">Appointment Date</label>
+            <input id="appointmentDate" type="date"
+            class="w-full p-3 border border-pink-300 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-pink-300">
+            <span id="dateError" class="error-message hidden"></span>
+
+         <select id="appointmentTime"  
+            class="w-full p-3 border border-pink-400 rounded-lg mb-4 text-pink-700 bg-white placeholder-pink-500 focus:outline-none focus:border-pink-600 focus:ring-2 focus:ring-pink-300 transition-all duration-200 ease-in-out">
+            <option value="">-- Select Time --</option>
+              <option value="08:00 AM">08:00 AM</option>
+              <option value="08:30 AM">08:30 AM</option>
+              <option value="09:00 AM">09:00 AM</option>
+              <option value="09:30 AM">09:30 AM</option>
+              <option value="10:00 AM">10:00 AM</option>
+              <option value="10:30 AM">10:30 AM</option>
+              <option value="11:00 AM">11:00 AM</option>
+              <option value="11:30 AM">11:30 AM</option>
+              <option value="12:00 PM">12:00 PM</option>
+              <option value="12:30 PM">12:30 PM</option>
+              <option value="01:00 PM">01:00 PM</option>
+              <option value="01:30 PM">01:30 PM</option>
+              <option value="02:00 PM">02:00 PM</option>
+              <option value="02:30 PM">02:30 PM</option>
+              <option value="03:00 PM">03:00 PM</option>
+              <option value="03:30 PM">03:30 PM</option>
+              <option value="04:00 PM">04:00 PM</option>
+              <option value="04:30 PM">04:30 PM</option>
+              <option value="05:00 PM">05:00 PM</option>
+              <option value="05:30 PM">05:30 PM</option>
+              <option value="06:00 PM">06:00 PM</option>
+              <option value="06:30 PM">06:30 PM</option>
+              <option value="07:00 PM">07:00 PM</option>
+              <option value="07:30 PM">07:30 PM</option>
+              <option value="08:00 PM">08:00 PM</option>
+              <option value="08:30 PM">08:30 PM</option>
+              <option value="09:00 PM">09:00 PM</option>
+        </select>
+            <span id="timeError" class="error-message hidden"></span>
+
+            <label class="text-sm text-pink-900 font-medium mb-2 block">Ratecard -> Services List & Price</label>
+        <div class="custom-select-wrapper">
+            <div id="serviceSelectTrigger" class="custom-select-trigger">
+                <span>Click here and then click on '+'</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </div>
+            <div id="serviceOptions" class="custom-options hidden">
+            </div>
+        </div>
+            <span id="serviceError" class="error-message hidden"></span>
+
+
+            <div id="cart" class="text-sm mb-2 text-pink-900"></div>
+            <div id="totalBox" class="text-lg font-semibold mb-4 text-pink-900">Total: ₹0</div>
+
+            <button onclick="triggerSpinWheel()"
+            class="w-full bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-lg text-lg font-semibold transition">
+                  🎉 click here to check Discount
+                </button>
+         
+    </div>
+
+        <div id="spinModal"
+        class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
+            <div class="glass-card text-center relative max-w-sm w-full">
+                  <div class="pointer"></div>
+                  <div class="wheel mx-auto mb-4 relative" id="wheelContainer"></div>
+                  <h2 class="text-xl font-bold text-pink-300 mb-2">
+                        🎊 Yay! Congratulations, you get a <span id="discountPercentDisplay" class="text-white"></span>%
+                discount!
+                      </h2>
+                  <p class="text-2xl font-bold text-pink-100 mb-2">Your Final Amount: ₹<span id="finalAmount"></span>
+            </p>
+                  <p class="mb-2 text-pink-200 text-sm">Services: <span id="finalServices" class="italic"></span></p>
+                  <button onclick="continueToWhatsApp()"
+                class="mt-4 bg-pink-400 hover:bg-pink-500 text-black px-5 py-2 rounded-lg transition">Lock
+                Appointment</button>
+                </div>
+          </div>
+
+     
+    <script>
+        // --- Data Structure for Services ---
+        const allServices = {
+            'Hair': [
+                { name: 'Hair Cut', price: 250 },
+                { name: 'Hair Cut + Hair Wash + Blow Dry', price: 350 },
+                { name: 'Normal Hair Spa', price: 1000 },
+                { name: 'Dandruff Treatment', price: 500 },
+                { name: 'Protein Hair Spa', price: 1500 }
+            ],
+            'Beauty': [
+                { name: 'Threading', price: 30 },
+                { name: 'Upper Lip', price: 10 },
+                { name: 'Forehead', price: 10 },
+                { name: 'Chin', price: 10 },
+                { name: 'Side Locks', price: 70 },
+                { name: 'Full Face', price: 150 }
+            ],
+            'D-Tan': [
+                { name: 'Raga D-tan', price: 350 },
+                { name: 'Tan Eraser D-tan', price: 550 },
+                { name: 'Full Body D-tan', price: 1500 }
+            ],
+            'Bleach': [
+                { name: 'Face Bleach', price: 350 },
+                { name: 'Full Body Bleach', price: 1500 }
+            ],
+            'Cleanup': [
+                { name: 'Fruit Cleanup', price: 350 },
+                { name: 'Coffee Cleanup', price: 350 }
+            ],
+            'Polishing': [
+                { name: 'Full Body Polishing', price: 1900 },
+                { name: 'Full Body Massage', price: 1000 }
+            ],
+            'Treatment': [
+                { name: 'Straightening', price: 3000 },
+                { name: 'Smoothing', price: 2500 },
+                { name: 'Keratin', price: 3000 },
+                { name: 'Botox', price: 6000 },
+                { name: 'Nanoplastia', price: 3000 }
+            ],
+            'Waxing': [
+                { name: 'Full Hands Normal', price: 150 },
+                { name: 'Under Arms', price: 80 },
+                { name: 'Full Leg', price: 500 },
+                { name: 'Half Leg', price: 250 }
+            ],
+            'Rica Wax': [
+                { name: 'Full Hands Rica', price: 350 },
+                { name: 'Under Arms Rica', price: 100 },
+                { name: 'Full Leg Rica', price: 750 },
+                { name: 'Half Leg Rica', price: 350 },
+                { name: 'Full Body Waxing Honey', price: 2000 },
+                { name: 'Rica Full Body Waxing', price: 2500 },
+                { name: 'Bikini Waxing Rica', price: 1000 },
+                { name: 'Brazilian Peel-Off', price: 1500 }
+            ],
+            'Facial': [
+                { name: 'Hydra Facial', price: 2500 },
+                { name: 'Sara Diamond Facial', price: 1500 },
+                { name: 'O3 Facial', price: 2000 },
+                { name: 'Rica Feel Facial', price: 1000 },
+                { name: 'Lotus Facial', price: 1000 },
+                { name: 'Lotus Diamond Facial', price: 1500 },
+                { name: '24k Gold Mohtarma Facial', price: 1000 },
+                { name: 'Mix Fruit Mohtarma Facial', price: 550 },
+                { name: 'Wine Facial', price: 1000 },
+                { name: 'Rice Feel Facial', price: 1000 }
+            ],
+            'Hair Colour': [
+                { name: 'Root Touch Up', price: 1300 },
+                { name: 'Global Hair Colour', price: 3000 },
+                { name: 'Fashion Global Colour', price: 3000 },
+                { name: 'Balayage Colour', price: 3000 },
+                { name: 'Ombre Colour', price: 2500 },
+                { name: 'Global Highlights', price: 4000 },
+                { name: 'Highlights 1 Strip', price: 350 },
+                { name: 'Funky Colour', price: 550 }
+            ]
+        };
+
+        let selectedServices = [];
+        let totalAmount = 0;
+        let discountedAmount = 0;
+        let finalDiscount = 0;
+
+        // --- DOM Elements ---
+        const customerNameInput = document.getElementById("customerName");
+        const customerPhoneInput = document.getElementById("customerPhone");
+        const appointmentDateInput = document.getElementById("appointmentDate");
+        const appointmentTimeSelect = document.getElementById("appointmentTime");
+        const serviceSelectTrigger = document.getElementById("serviceSelectTrigger"); // New: the clickable part of custom dropdown
+        const serviceOptionsDiv = document.getElementById("serviceOptions");       // New: the list of options
+        const cartDiv = document.getElementById("cart");
+        const totalBoxDiv = document.getElementById("totalBox");
+
+        // --- Error Message Elements ---
+        const nameError = document.getElementById("nameError");
+        const phoneError = document.getElementById("phoneError");
+        const dateError = document.getElementById("dateError");
+        const timeError = document.getElementById("timeError");
+        const serviceError = document.getElementById("serviceError");
+
+        // Helper functions for errors
+        function showError(element, message) {
+            element.textContent = message;
+            element.classList.remove('hidden');
+        }
+
+        function hideError(element) {
+            element.textContent = '';
+            element.classList.add('hidden');
+        }
+
+        // --- Custom Dropdown Logic ---
+        serviceSelectTrigger.addEventListener('click', () => {
+            serviceOptionsDiv.classList.toggle('hidden');
+            // Re-populate and update buttons when opened
+            if (!serviceOptionsDiv.classList.contains('hidden')) {
+                populateServiceDropdown();
+            }
+        });
+
+        // Close custom dropdown if clicked outside
+        document.addEventListener('click', (event) => {
+            if (!event.target.closest('.custom-select-wrapper') && !serviceOptionsDiv.classList.contains('hidden')) {
+                serviceOptionsDiv.classList.add('hidden');
+            }
+        });
+
+        // --- Service Dropdown Population ---
+        function populateServiceDropdown() {
+            serviceOptionsDiv.innerHTML = ''; // Clear previous options
+
+            for (const category in allServices) {
+                const groupLabel = document.createElement('span');
+                groupLabel.className = 'custom-option-group-label';
+                groupLabel.textContent = category;
+                serviceOptionsDiv.appendChild(groupLabel);
+
+                allServices[category].forEach(service => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'custom-option';
+                    optionDiv.dataset.value = `${service.name}:${service.price}`; // Store service data
+
+                    const serviceText = document.createElement('span');
+                    serviceText.textContent = `${service.name} - ₹${service.price}`;
+                    optionDiv.appendChild(serviceText);
+
+                    const addButton = document.createElement('button');
+                    addButton.type = 'button'; // Important for buttons not to submit forms
+                    addButton.className = 'add-service-btn';
+                    addButton.textContent = '+';
+                    addButton.title = `Add ${service.name} to cart`;
+
+                    // Check if service is already selected and update button state
+                    const isAlreadyAdded = selectedServices.some(s => s.split(":")[0] === service.name);
+                    if (isAlreadyAdded) {
+                        addButton.classList.add('added');
+                        addButton.textContent = '✔';
+                        addButton.disabled = true;
+                        addButton.title = `${service.name} already added`;
+                    }
+
+                    addButton.onclick = (event) => {
+                        event.stopPropagation(); // Prevent trigger from closing immediately
+                        addServiceToCart(optionDiv.dataset.value, addButton);
+                    };
+                    optionDiv.appendChild(addButton);
+                    serviceOptionsDiv.appendChild(optionDiv);
+                });
+            }
+        }
+
+        // This function adds the service when the '+' button is clicked
+        function addServiceToCart(serviceValue, buttonElement) {
+            if (!serviceValue) return;
+
+            hideError(serviceError);
+
+            const [newServiceName, newServicePrice] = serviceValue.split(":");
+            const serviceIdentifier = newServiceName;
+
+            if (!selectedServices.some(s => s.split(":")[0] === serviceIdentifier)) {
+                selectedServices.push(serviceValue);
+                updateCart();
+
+                // Update the button state
+                if (buttonElement) {
+                    buttonElement.classList.add('added');
+                    buttonElement.textContent = '✔';
+                    buttonElement.disabled = true;
+                    buttonElement.title = `${newServiceName} already added`;
+                }
+            } else {
+                showError(serviceError, "This service is already added.");
+                setTimeout(() => hideError(serviceError), 3000);
+            }
+            // You might choose to keep the dropdown open or close it here
+            // serviceOptionsDiv.classList.add('hidden'); // Uncomment to close after adding
+        }
+
+        // This function calculates total and updates the cart display
+        function updateCart() {
+            let currentTotal = 0;
+            const listItems = selectedServices.map(s => {
+                const [name, priceStr] = s.split(":");
+                const price = parseInt(priceStr);
+                currentTotal += price;
+                return `<li><span class="cart-plus-icon">+</span> ${name} - ₹${price} <button type="button" class="text-red-500 hover:text-red-700 ml-2" onclick="removeService('${s}')">&times;</button></li>`;
+            });
+            totalAmount = currentTotal;
+            cartDiv.innerHTML = `<strong>Selected Services:</strong><ul class="list-none p-0 m-0">${listItems.join("")}</ul>`;
+            totalBoxDiv.textContent = `Total: ₹${totalAmount}`;
+
+            // After updating cart, ensure dropdown buttons reflect current state
+            if (!serviceOptionsDiv.classList.contains('hidden')) {
+                populateServiceDropdown(); // Re-render to update '+' to '✔'
+            }
+        }
+
+        function removeService(serviceToRemove) {
+            selectedServices = selectedServices.filter(s => s !== serviceToRemove);
+            updateCart();
+        }
+
+        // --- Initial Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // We don't populate dropdown fully on load, just the trigger text
+            // populateServiceDropdown(); // This will happen when trigger is clicked
+            updateCart(); // Initialize cart display on load (even if empty)
+            // Set min date for appointment to today
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            appointmentDateInput.min = `${yyyy}-${mm}-${dd}`;
+        });
+
+        function triggerSpinWheel() {
+    let isValid = true;
+
+    // Reset all errors
+    hideError(nameError);
+    hideError(phoneError);
+    hideError(dateError);
+    hideError(timeError);
+    hideError(serviceError);
+
+    const name = customerNameInput.value.trim();
+    const phone = customerPhoneInput.value.trim();
+    const date = appointmentDateInput.value;
+    const time = appointmentTimeSelect.value;
+
+    if (!name) {
+        showError(nameError, "Please enter your name.");
+        isValid = false;
+    }
+    if (phone.length !== 10 || !/^[0-9]{10}$/.test(phone)) {
+        showError(phoneError, "Enter a valid 10-digit WhatsApp number.");
+        isValid = false;
+    }
+    if (!date) {
+        showError(dateError, "Please select an appointment date.");
+        isValid = false;
+    } else {
+        const selectedDate = new Date(date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (selectedDate < today) {
+            showError(dateError, "Appointment date cannot be in the past.");
+            isValid = false;
+        }
+    }
+    if (!time) {
+        showError(timeError, "Please select an appointment time.");
+        isValid = false;
+    }
+    if (selectedServices.length === 0) {
+        showError(serviceError, "Please select at least one service.");
+        isValid = false;
     }
 
-    // Toggle selection
-    function toggleItem(id, name, price) {
-      const element = document.getElementById(id);
-      const exists = selectedItems.find(i => i.id === id);
+    if (!isValid) return;
 
-      if (exists) {
-        // remove
-        selectedItems = selectedItems.filter(i => i.id !== id);
-        element.classList.remove("bg-green-100", "border", "border-green-500");
-        element.classList.add("bg-pink-50");
-      } else {
-        // add
-        selectedItems.push({ id, name, price });
-        element.classList.remove("bg-pink-50");
-        element.classList.add("bg-green-100", "border", "border-green-500");
-      }
+    // ✅ Skip the modal, apply discount immediately
+    const discounts = [5, 10, 15, 20, 25, 30];
+    const selectedIndex = Math.floor(Math.random() * discounts.length);
+    finalDiscount = discounts[selectedIndex];
+    const discountAmount = Math.floor(totalAmount * finalDiscount / 100);
+    discountedAmount = totalAmount - discountAmount;
 
-      updateSummary();
-    }
+    // Show result box
+    showDiscountBox();
+}
 
-    // Update summary
-    function updateSummary() {
-      const summary = document.getElementById("cartSummary");
-      if (selectedItems.length === 0) {
-        summary.classList.add("hidden");
-        return;
-      }
-      summary.classList.remove("hidden");
+function showDiscountBox() {
+    // Remove previous box if exists
+    const oldBox = document.getElementById("finalBoxDisplay");
+    if (oldBox) oldBox.remove();
 
-      let total = selectedItems.reduce((sum, item) => sum + item.price, 0);
-      let discount = Math.round(total * 0.15);
-      let final = total - discount;
+    const box = document.createElement("div");
+    box.id = "finalBoxDisplay";
+    box.className = "glass-card text-center mt-6 p-6 border border-pink-400 rounded-xl shadow-xl bg-white";
 
-      document.getElementById("total").innerText = `₹${total}`;
-      document.getElementById("discount").innerText = `₹${discount}`;
-      document.getElementById("final").innerText = `₹${final}`;
-    }
+    box.innerHTML = `
+      <h2 class="text-xl font-bold text-pink-600 mb-2">🎁 You got ${finalDiscount}% off!</h2>
+      <p class="text-2xl text-pink-900 font-bold mb-4">Your Final Total: ₹${discountedAmount}</p>
+      <button onclick="continueToWhatsApp()" class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-lg text-lg font-semibold shadow-md transition">
+        SUBMIT YOUR APPOINTMENT
+      </button>
+    `;
 
-    // Send to WhatsApp
-    function sendToWhatsApp() {
-      if (selectedItems.length === 0) {
-        alert("Please select at least one service!");
-        return;
-      }
+    document.querySelector("body").appendChild(box);
+    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+}
 
-      let message = "Hello, I would like to book these services:%0A%0A";
-      let total = 0;
 
-      selectedItems.forEach(item => {
-        message += `• ${item.name} - ₹${item.price}%0A`;
-        total += item.price;
-      });
+           
 
-      let discount = Math.round(total * 0.15);
-      let final = total - discount;
+        function spinTheWheel() {
+  const wheel = document.getElementById("wheelContainer");
+  wheel.innerHTML = "";
+  const colors = ['#f44336', '#e91e63', '#9c27b0', '#3f51b5', '#03a9f4', '#009688'];
+  const discounts = [3, 5, 7, 9, 11, 15];
+  const anglePerSlice = 360 / discounts.length;
 
-      message += `%0ATotal: ₹${total}`;
-      message += `%0ADiscount : ₹${discount}`;
-      message += `%0AFinal Payable: ₹${final}`;
+  discounts.forEach((discount, i) => {
+    const slice = document.createElement("div");
+    slice.className = "slice";
+    slice.style.backgroundColor = colors[i];
+    slice.style.transform = `rotate(${i * anglePerSlice}deg) skewY(-60deg)`;
+    slice.innerText = `${discount}%`;
+    wheel.appendChild(slice);
+  });
 
-      // Replace with your salon's WhatsApp number
-      const phone = "918432019333"; 
-      const url = `https://api.whatsapp.com/send?phone=${phone}&text=${message}`;
-      window.open(url, "_blank");
-    }
+  wheel.style.transition = 'none';
+  wheel.style.transform = 'rotate(0deg)';
+  wheel.offsetHeight;
 
-    // Load default category
-    showCategory("men");
-  </script>
+  const selectedIndex = Math.floor(Math.random() * discounts.length);
+  finalDiscount = discounts[selectedIndex];
+  const discountAmount = Math.floor(totalAmount * finalDiscount / 100);
+  discountedAmount = totalAmount - discountAmount;
+
+  const spinDuration = 4000;
+  const numSpins = 5;
+  const landingAngle = (360 - (selectedIndex * anglePerSlice) - (anglePerSlice / 2));
+
+  wheel.style.transition = `transform ${spinDuration / 1000}s ease-out`;
+  wheel.style.transform = `rotate(${numSpins * 360 + landingAngle}deg)`;
+
+  setTimeout(() => {
+    document.getElementById("finalAmount").innerText = discountedAmount;
+    document.getElementById("discountPercentDisplay").innerText = finalDiscount;
+    document.getElementById("finalServices").innerText = selectedServices.map(s => s.split(":")[0]).join(", ");
+    confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
+
+    // ✅ Auto redirect to WhatsApp
+    setTimeout(() => {
+      continueToWhatsApp();
+    }, 3000);
+  }, spinDuration + 100);
+}
+
+
+
+        function continueToWhatsApp() {
+            const name = customerNameInput.value;
+            const phone = customerPhoneInput.value;
+            const rawDate = appointmentDateInput.value;
+            const [yyyy, mm, dd] = rawDate.split("-");
+            const date = `${dd}-${mm}-${yyyy}`;
+            const time = appointmentTimeSelect.value;
+            const services = selectedServices.map(s => s.split(":")[0]).join(", ");
+            const msg = `Hello ! I'd like to book an appointment with these details:%0A%0A*Name:* ${name}%0A*WhatsApp:* ${phone}%0A*Date:* ${date}%0A*Time:* ${time}%0A*Services:* ${services}%0A*Total (after discount):* ₹${discountedAmount}%0A%0APlease confirm my booking. Thank you!`;
+
+            saveToSheet(name, phone, date, time, services, totalAmount, finalDiscount, discountedAmount);
+
+            setTimeout(() => {
+                window.location.href = `https://api.whatsapp.com/send?phone=919405411217&text=${msg}`;
+            }, 1000);
+        }
+
+        function saveToSheet(name, phone, date, time, services, total, discount, finalAmount) {
+            fetch("https://script.google.com/macros/s/AKfycbyDnV90t0KR6nkSE5VYGsH5tOYSdWPwHoWkflo9vZ3ALJGj5BwUjQQh56pcsbcC6gFFRA/exec", {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify({ name, phone, date, time, services, total, discountPercent: discount, discounted: finalAmount })
+            })
+                .then(r => r.json())
+                .then(res => console.log("✅ Saved:", res))
+                .catch(err => console.error("❌ Save error:", err));
+        }
+    </script>
+
 </body>
-</html>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <script>
-    // Call button
-    document.getElementById('btnCall')?.addEventListener('click', () => {
-      window.location.href = 'tel:+918432019333';
-    });
-
-    // Ratecard sheet logic
-    const sheet = document.getElementById('rateSheet');
-    const overlay = document.getElementById('sheetOverlay');
-    const openers = [document.getElementById('btnRatecard'), document.getElementById('btnRatecard2')];
-    const closer = document.getElementById('btnCloseSheet');
-
-    function openSheet() {
-      sheet.classList.add('open');
-      overlay.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeSheet() {
-      sheet.classList.remove('open');
-      overlay.classList.add('hidden');
-      document.body.style.overflow = '';
-    }
-    openers.forEach(btn => btn && btn.addEventListener('click', openSheet));
-    closer?.addEventListener('click', closeSheet);
-    overlay?.addEventListener('click', closeSheet);
-
-    // Improve ticker smoothness on resize by cloning if needed
-    // (Already duplicated; this is a safety net if you add more chips later)
-    const track = document.getElementById('tickerTrack');
-    function ensureTickerWidth() {
-      const total = Array.from(track.children).reduce((w, el) => w + el.getBoundingClientRect().width, 0);
-      const wrap = track.parentElement.getBoundingClientRect().width;
-      if (total < wrap * 2) {
-        // clone once to keep loop smooth
-        track.appendChild(track.children[0].cloneNode(true));
-      }
-    }
-    window.addEventListener('load', ensureTickerWidth);
-    window.addEventListener('resize', ensureTickerWidth);
-  </script>
-</body>
 </html>
