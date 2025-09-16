@@ -3,148 +3,99 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>INFINITY AMC Plans</title>
+<title>INFINITY AMC PLAN</title>
+
+<!-- Premium EU Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
   body {
-    font-family: 'Poppins', sans-serif;
-    background: #fff0f6;
+    font-family: 'Lora', serif;
+    background: #fff8f5;
     margin: 0;
     padding: 20px;
     color: #333;
   }
+
   h1 {
+    font-family: 'Cormorant Garamond', serif;
     text-align: center;
-    margin-bottom: 30px;
-    color: #c2185b;
-    font-size: 28px;
+    font-size: 40px;
+    color: #b71c1c;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+    font-weight: 700;
   }
 
-  /* Carousel container */
-  .carousel {
+  .plans {
     display: flex;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
     gap: 20px;
-    padding-bottom: 10px;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 20px;
   }
-
-  /* Hide scrollbar */
-  .carousel::-webkit-scrollbar {
-    display: none;
-  }
+  .plans::-webkit-scrollbar { display: none; }
 
   .card {
-    flex: 0 0 80%;
+    flex: 0 0 90%;
     scroll-snap-align: center;
-    border-radius: 20px;
+    border-radius: 25px;
     overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-    background: #fff;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.18);
     transition: transform 0.3s, box-shadow 0.3s;
-    position: relative;
+    background: #fff;
+    min-width: 280px;
   }
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.18);
-  }
+  .card:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
 
-  .card-header {
-    padding: 20px;
-    color: #fff;
-    text-align: center;
-  }
-  .basic-header {
-    background: linear-gradient(135deg, #f48fb1, #ec407a);
-  }
-  .medium-header {
-    background: linear-gradient(135deg, #f06292, #d81b60);
-    position: relative;
-  }
-  .advanced-header {
-    background: linear-gradient(135deg, #ad1457, #6a1b9a);
-  }
+  .card-header { padding: 20px; text-align: center; color: #fff; }
+  .basic-header { background: linear-gradient(135deg, #ff9aa2, #ff6f91); }
+  .medium-header { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+  .advanced-header { background: linear-gradient(135deg, #6dd5fa, #2980b9); }
 
-  .card-header h2 {
-    margin: 0;
-    font-size: 22px;
-  }
-  .price {
-    font-size: 28px;
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  .yearly {
-    font-size: 14px;
-    opacity: 0.85;
-  }
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 20px;
-  }
-  ul li {
-    font-size: 14px;
-    padding: 6px 0;
-    border-bottom: 1px dashed #eee;
-  }
-  ul li::before {
-    content: "✔";
-    color: #e91e63;
-    margin-right: 8px;
-    font-weight: bold;
-  }
+  .card-header h2 { margin: 0; font-size: 26px; font-family: 'Cormorant Garamond', serif; font-weight: 700; }
+  .price { font-size: 38px; font-weight: 700; margin-top: 12px; }
+  .yearly { font-size: 14px; opacity: 0.9; margin-bottom: 8px; }
+
+  ul { list-style: none; padding: 15px 20px; margin: 0; font-family: 'Lora', serif; }
+  ul li { font-size: 16px; padding: 8px 0; border-bottom: 1px dashed #eee; }
+  ul li::before { content: "✔"; color: #e91e63; margin-right: 8px; font-weight: bold; }
+
   .btn {
     display: block;
     text-align: center;
-    background: #e91e63;
-    color: #fff;
-    padding: 12px;
-    margin: 20px;
+    padding: 14px;
+    margin: 15px 20px 20px;
     border-radius: 30px;
     text-decoration: none;
     font-weight: bold;
+    font-size: 16px;
     transition: background 0.3s;
   }
-  .btn:hover {
-    background: #c2185b;
-  }
+  .basic-btn { background: #ff6f91; color: #fff; }
+  .basic-btn:hover { background: #ff3f70; }
+  .medium-btn { background: #8e44ad; color: #fff; }
+  .medium-btn:hover { background: #6c3483; }
+  .advanced-btn { background: #2980b9; color: #fff; }
+  .advanced-btn:hover { background: #1c5980; }
 
-  /* Popular ribbon */
-  .ribbon {
-    width: 140px;
-    background: #f50057;
-    color: #fff;
-    text-align: center;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 20px;
-    transform: rotate(45deg);
-    position: absolute;
-    top: 10px;
-    right: -30px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-  }
+  .ribbon { width: 140px; background: #ffd700; color: #000; text-align: center; font-size: 13px;
+    font-weight: bold; line-height: 20px; transform: rotate(45deg); position: absolute;
+    top: 12px; right: -30px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
 
   /* Desktop grid */
   @media(min-width: 900px){
-    .carousel {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      overflow: visible;
-      gap: 30px;
-    }
-    .card {
-      flex: unset;
-      scroll-snap-align: unset;
-    }
+    .plans { display: grid; grid-template-columns: repeat(3, 1fr); overflow: visible; gap: 30px; }
+    .card { flex: unset; scroll-snap-align: unset; }
   }
 </style>
 </head>
 <body>
-<h1>INFINITY AMC Plans</h1>
 
-<div class="carousel">
+<h1>INFINITY AMC PLAN</h1>
+
+<div class="plans">
+
   <!-- Basic Plan -->
   <div class="card">
     <div class="card-header basic-header">
@@ -162,7 +113,7 @@
       <li>Unlimited Basic Manicure</li>
       <li>Unlimited Basic Pedicure</li>
     </ul>
-    <a href="#" class="btn">Get Basic Plan</a>
+    <a href="https://api.whatsapp.com/send?phone=+918432019333&text=Hi,+I+want+to+buy+the+Basic+AMC+Plan" target="_blank" class="btn basic-btn">Get Basic Plan</a>
   </div>
 
   <!-- Medium Plan -->
@@ -183,7 +134,7 @@
       <li>Unlimited Manicure & Pedicure (Spa)</li>
       <li>Unlimited Nail Polish Application</li>
     </ul>
-    <a href="#" class="btn">Get Medium Plan</a>
+    <a href="https://api.whatsapp.com/send?phone=+918432019333&text=Hi,+I+want+to+buy+the+Medium+AMC+Plan" target="_blank" class="btn medium-btn">Get Medium Plan</a>
   </div>
 
   <!-- Advanced Plan -->
@@ -203,8 +154,9 @@
       <li>Unlimited Bridal / Party Makeup Trials</li>
       <li>Unlimited Saree Draping & Hair Styling</li>
     </ul>
-    <a href="#" class="btn">Get Advanced Plan</a>
+    <a href="https://api.whatsapp.com/send?phone=+918432019333&text=Hi,+I+want+to+buy+the+Advanced+AMC+Plan" target="_blank" class="btn advanced-btn">Get Advanced Plan</a>
   </div>
+
 </div>
 
 </body>
