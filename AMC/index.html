@@ -5,104 +5,152 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>INFINITY AMC PLAN</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
-  font-family: 'Lora', serif;
-  background: #fff8f5;
-  margin: 0;
-  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+  background: #fdf6f0;
   color: #333;
   overflow-x: hidden;
 }
 
 h1 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   text-align: center;
   font-size: 42px;
-  color: #b71c1c;
-  margin-bottom: 40px;
+  color: #d14c5e;
+  margin: 40px 20px;
   font-weight: 700;
 }
 
-/* Carousel container */
+/* Carousel Container */
 .carousel {
   position: relative;
   width: 100%;
   overflow: hidden;
+  padding-bottom: 40px;
 }
 
 .carousel-track {
   display: flex;
-  transition: transform 0.5s ease-in-out;
+  gap: 20px;
+  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  padding: 20px;
 }
+
+.carousel-track::-webkit-scrollbar { display: none; }
 
 /* Cards */
 .card {
-  flex: 0 0 100%;
-  border-radius: 25px;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.18);
-  margin-right: 20px;
-  background: #fff;
-  text-align: center;
-  transition: transform 0.5s, opacity 0.5s;
+  flex: 0 0 90%;
+  max-width: 350px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 30px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  scroll-snap-align: center;
+  margin: 0 auto;
+}
+.card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.15);
 }
 
-.card-header { padding: 30px; color: #fff; }
-.basic-header { background: linear-gradient(135deg, #ff9aa2, #ff6f91); }
-.medium-header { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
-.advanced-header { background: linear-gradient(135deg, #6dd5fa, #2980b9); }
+/* Card Header */
+.card-header {
+  border-radius: 30px 30px 0 0;
+  padding: 35px 20px;
+  color: #fff;
+  text-align: center;
+}
+.basic-header { background: linear-gradient(135deg, #fbb1b1, #f2c6c2); }
+.medium-header { background: linear-gradient(135deg, #b892ff, #7f5af0); }
+.advanced-header { background: linear-gradient(135deg, #89cffe, #5dade2); }
 
-.card-header h2 { margin: 0; font-size: 28px; font-family: 'Cormorant Garamond', serif; font-weight: 700; }
-.price { font-size: 38px; font-weight: 700; margin-top: 12px; }
-.yearly { font-size: 16px; opacity: 0.9; margin-bottom: 10px; }
+.card-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 28px;
+}
+.price {
+  font-size: 38px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+.yearly { font-size: 16px; opacity: 0.9; margin-bottom: 0; }
 
-ul { list-style: none; padding: 20px; margin: 0; font-size: 16px; }
-ul li { padding: 8px 0; border-bottom: 1px dashed #eee; }
-ul li::before { content: "✔"; color: #e91e63; margin-right: 8px; font-weight: bold; }
+/* Services List */
+ul {
+  list-style: none;
+  padding: 20px;
+  font-size: 16px;
+}
+ul li {
+  padding: 10px 0;
+  border-bottom: 1px dashed #eee;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.3s;
+}
+ul li::before { content: "✔"; color: #d14c5e; font-weight: bold; }
+ul li:hover { transform: translateX(5px); }
 
+/* Buttons */
 .btn {
   display: block;
-  padding: 16px;
+  padding: 14px;
   margin: 20px auto 30px;
   width: 80%;
   border-radius: 35px;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 16px;
   color: #fff;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
+  text-align: center;
 }
-.basic-btn { background: #ff6f91; }
-.basic-btn:hover { background: #ff3f70; }
-.medium-btn { background: #8e44ad; }
-.medium-btn:hover { background: #6c3483; }
-.advanced-btn { background: #2980b9; }
-.advanced-btn:hover { background: #1c5980; }
+.btn:hover { transform: scale(1.05); box-shadow: 0 15px 25px rgba(0,0,0,0.2); }
+.basic-btn { background: linear-gradient(135deg, #fbb1b1, #f2c6c2); }
+.medium-btn { background: linear-gradient(135deg, #b892ff, #7f5af0); }
+.advanced-btn { background: linear-gradient(135deg, #89cffe, #5dade2); }
 
-/* Navigation buttons */
+/* Navigation Arrows */
 .prev, .next {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.3);
   color: #fff;
   font-size: 28px;
   border: none;
   padding: 10px 15px;
   border-radius: 50%;
   cursor: pointer;
+  z-index: 10;
+  transition: 0.3s;
 }
+.prev:hover, .next:hover { background: rgba(0,0,0,0.6); }
 .prev { left: 10px; }
 .next { right: 10px; }
 
-@media(min-width: 900px){
-  .carousel-track { flex-wrap: nowrap; }
-  .card { flex: 0 0 33.33%; margin-right: 20px; }
+@media(min-width: 768px) {
+  .carousel-track { gap: 30px; padding: 40px; }
+  .card { flex: 0 0 45%; }
+}
+@media(min-width: 1024px) {
+  .carousel-track { gap: 40px; padding: 50px 60px; }
+  .card { flex: 0 0 30%; }
   .prev, .next { display: none; }
 }
+
 </style>
 </head>
 <body>
@@ -123,7 +171,7 @@ ul li::before { content: "✔"; color: #e91e63; margin-right: 8px; font-weight: 
         <li>Unlimited Haircuts</li>
         <li>Unlimited Hair Wash</li>
         <li>Unlimited Blow Dry</li>
-        <li>Unlimited Threading (Brows, Upper Lip, Chin)</li>
+        <li>Unlimited Threading</li>
         <li>Unlimited Facials & Cleanups</li>
         <li>Unlimited Waxing</li>
         <li>Unlimited Basic Manicure</li>
@@ -131,6 +179,7 @@ ul li::before { content: "✔"; color: #e91e63; margin-right: 8px; font-weight: 
       </ul>
       <a href="https://api.whatsapp.com/send?phone=+918432019333&text=Hi,+I+want+to+buy+the+Basic+AMC+Plan" target="_blank" class="btn basic-btn">Get Basic Plan</a>
     </div>
+
     <!-- Medium Plan -->
     <div class="card">
       <div class="card-header medium-header">
@@ -150,6 +199,7 @@ ul li::before { content: "✔"; color: #e91e63; margin-right: 8px; font-weight: 
       </ul>
       <a href="https://api.whatsapp.com/send?phone=+918432019333&text=Hi,+I+want+to+buy+the+Medium+AMC+Plan" target="_blank" class="btn medium-btn">Get Medium Plan</a>
     </div>
+
     <!-- Advanced Plan -->
     <div class="card">
       <div class="card-header advanced-header">
@@ -181,18 +231,39 @@ const prevBtn = document.querySelector('.prev');
 let index = 0;
 
 function updateCarousel() {
-  track.style.transform = `translateX(-${index * 100}%)`;
+  const cardWidth = cards[0].offsetWidth + 20; // include gap
+  track.style.transform = `translateX(-${index * cardWidth}px)`;
 }
 
-// Next button
+// Buttons
 nextBtn.addEventListener('click', () => {
   index = (index + 1) % cards.length;
   updateCarousel();
 });
-// Prev button
 prevBtn.addEventListener('click', () => {
   index = (index - 1 + cards.length) % cards.length;
   updateCarousel();
+});
+
+// Mobile Drag
+let isDown = false;
+let startX;
+let scrollLeft;
+
+track.addEventListener('mousedown', (e) => {
+  isDown = true;
+  track.classList.add('active');
+  startX = e.pageX - track.offsetLeft;
+  scrollLeft = track.scrollLeft;
+});
+track.addEventListener('mouseleave', () => isDown = false);
+track.addEventListener('mouseup', () => isDown = false);
+track.addEventListener('mousemove', (e) => {
+  if(!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - track.offsetLeft;
+  const walk = (x - startX) * 1.5;
+  track.scrollLeft = scrollLeft - walk;
 });
 </script>
 
