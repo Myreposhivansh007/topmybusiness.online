@@ -26,15 +26,21 @@ h1 {
   font-weight: 700;
 }
 
-/* Cards container */
+/* Horizontal scroll container */
 .plans {
   display: flex;
-  flex-direction: column;
-  gap: 30px;
+  overflow-x: auto;
+  gap: 20px;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 20px;
+  scroll-behavior: smooth;
 }
+.plans::-webkit-scrollbar { display: none; }
 
-/* Card styling */
+/* Cards */
 .card {
+  flex: 0 0 80%;
+  scroll-snap-align: center;
   border-radius: 25px;
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0,0,0,0.18);
@@ -44,33 +50,38 @@ h1 {
   transform: translateY(50px);
   position: relative;
 }
-.card.show { opacity: 1; transform: translateY(0); }
 
-/* Card headers */
+/* Show animation */
+.card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Card header */
 .card-header { padding: 30px; text-align: center; color: #fff; }
 .basic-header { background: linear-gradient(135deg, #ff9aa2, #ff6f91); }
 .medium-header { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
 .advanced-header { background: linear-gradient(135deg, #6dd5fa, #2980b9); }
 
-.card-header h2 { margin: 0; font-size: 32px; font-family: 'Cormorant Garamond', serif; font-weight: 700; }
-.price { font-size: 46px; font-weight: 700; margin-top: 15px; }
+.card-header h2 { margin: 0; font-size: 28px; font-family: 'Cormorant Garamond', serif; font-weight: 700; }
+.price { font-size: 38px; font-weight: 700; margin-top: 12px; }
 .yearly { font-size: 16px; opacity: 0.9; margin-bottom: 10px; }
 
 /* List styling */
 ul { list-style: none; padding: 20px 25px; margin: 0; font-family: 'Lora', serif; }
-ul li { font-size: 18px; padding: 10px 0; border-bottom: 1px dashed #eee; }
-ul li::before { content: "✔"; color: #e91e63; margin-right: 10px; font-weight: bold; }
+ul li { font-size: 16px; padding: 8px 0; border-bottom: 1px dashed #eee; }
+ul li::before { content: "✔"; color: #e91e63; margin-right: 8px; font-weight: bold; }
 
 /* Buttons */
 .btn {
   display: block;
   text-align: center;
-  padding: 18px;
-  margin: 20px 25px 30px;
+  padding: 16px;
+  margin: 15px 25px 25px;
   border-radius: 35px;
   text-decoration: none;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
   transition: background 0.3s;
 }
 .basic-btn { background: #ff6f91; color: #fff; }
@@ -81,13 +92,14 @@ ul li::before { content: "✔"; color: #e91e63; margin-right: 10px; font-weight:
 .advanced-btn:hover { background: #1c5980; }
 
 /* Ribbon */
-.ribbon { width: 160px; background: #ffd700; color: #000; text-align: center; font-size: 14px;
-  font-weight: bold; line-height: 22px; transform: rotate(45deg); position: absolute;
-  top: 15px; right: -35px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+.ribbon { width: 140px; background: #ffd700; color: #000; text-align: center; font-size: 13px;
+  font-weight: bold; line-height: 20px; transform: rotate(45deg); position: absolute;
+  top: 12px; right: -30px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
 
-/* Desktop grid */
+/* Desktop grid fallback */
 @media(min-width: 900px){
-  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; overflow: visible; }
+  .card { flex: unset; scroll-snap-align: unset; }
 }
 </style>
 </head>
@@ -160,7 +172,6 @@ ul li::before { content: "✔"; color: #e91e63; margin-right: 10px; font-weight:
 
 </div>
 
-<!-- Animation script -->
 <script>
 const cards = document.querySelectorAll('.card');
 
