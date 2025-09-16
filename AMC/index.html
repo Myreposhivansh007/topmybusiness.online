@@ -26,21 +26,27 @@ h1 {
   font-weight: 700;
 }
 
+/* Cards container */
 .plans {
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
 
+/* Card styling */
 .card {
   border-radius: 25px;
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0,0,0,0.18);
   background: #fff;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.5s, opacity 0.5s;
+  opacity: 0;
+  transform: translateY(50px);
+  position: relative;
 }
-.card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.25); }
+.card.show { opacity: 1; transform: translateY(0); }
 
+/* Card headers */
 .card-header { padding: 30px; text-align: center; color: #fff; }
 .basic-header { background: linear-gradient(135deg, #ff9aa2, #ff6f91); }
 .medium-header { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
@@ -50,10 +56,12 @@ h1 {
 .price { font-size: 46px; font-weight: 700; margin-top: 15px; }
 .yearly { font-size: 16px; opacity: 0.9; margin-bottom: 10px; }
 
+/* List styling */
 ul { list-style: none; padding: 20px 25px; margin: 0; font-family: 'Lora', serif; }
 ul li { font-size: 18px; padding: 10px 0; border-bottom: 1px dashed #eee; }
 ul li::before { content: "✔"; color: #e91e63; margin-right: 10px; font-weight: bold; }
 
+/* Buttons */
 .btn {
   display: block;
   text-align: center;
@@ -72,6 +80,7 @@ ul li::before { content: "✔"; color: #e91e63; margin-right: 10px; font-weight:
 .advanced-btn { background: #2980b9; color: #fff; }
 .advanced-btn:hover { background: #1c5980; }
 
+/* Ribbon */
 .ribbon { width: 160px; background: #ffd700; color: #000; text-align: center; font-size: 14px;
   font-weight: bold; line-height: 22px; transform: rotate(45deg); position: absolute;
   top: 15px; right: -35px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
@@ -150,6 +159,21 @@ ul li::before { content: "✔"; color: #e91e63; margin-right: 10px; font-weight:
   </div>
 
 </div>
+
+<!-- Animation script -->
+<script>
+const cards = document.querySelectorAll('.card');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+    }
+  });
+}, { threshold: 0.2 });
+
+cards.forEach(card => observer.observe(card));
+</script>
 
 </body>
 </html>
