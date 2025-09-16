@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Women’s Beauty AMC Plans</title>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #fff0f6;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #c2185b;
+    font-size: 28px;
+  }
+
+  /* Carousel container */
+  .carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 20px;
+    padding-bottom: 10px;
+  }
+
+  /* Hide scrollbar */
+  .carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card {
+    flex: 0 0 80%;
+    scroll-snap-align: center;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    background: #fff;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.18);
+  }
+
+  .card-header {
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+  }
+  .basic-header {
+    background: linear-gradient(135deg, #f48fb1, #ec407a);
+  }
+  .medium-header {
+    background: linear-gradient(135deg, #f06292, #d81b60);
+    position: relative;
+  }
+  .advanced-header {
+    background: linear-gradient(135deg, #ad1457, #6a1b9a);
+  }
+
+  .card-header h2 {
+    margin: 0;
+    font-size: 22px;
+  }
+  .price {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  .yearly {
+    font-size: 14px;
+    opacity: 0.85;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 20px;
+  }
+  ul li {
+    font-size: 14px;
+    padding: 6px 0;
+    border-bottom: 1px dashed #eee;
+  }
+  ul li::before {
+    content: "✔";
+    color: #e91e63;
+    margin-right: 8px;
+    font-weight: bold;
+  }
+  .btn {
+    display: block;
+    text-align: center;
+    background: #e91e63;
+    color: #fff;
+    padding: 12px;
+    margin: 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  .btn:hover {
+    background: #c2185b;
+  }
+
+  /* Popular ribbon */
+  .ribbon {
+    width: 140px;
+    background: #f50057;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 20px;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 10px;
+    right: -30px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  }
+
+  /* Desktop grid */
+  @media(min-width: 900px){
+    .carousel {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      overflow: visible;
+      gap: 30px;
+    }
+    .card {
+      flex: unset;
+      scroll-snap-align: unset;
+    }
+  }
+</style>
+</head>
+<body>
+<h1>Women’s Beauty AMC Plans</h1>
+
+<div class="carousel">
+  <!-- Basic Plan -->
+  <div class="card">
+    <div class="card-header basic-header">
+      <h2>Basic Plan</h2>
+      <div class="price">₹5,000</div>
+      <div class="yearly">per year</div>
+    </div>
+    <ul>
+      <li>Unlimited Haircuts</li>
+      <li>Unlimited Hair Wash</li>
+      <li>Unlimited Blow Dry</li>
+      <li>Unlimited Threading (Brows, Upper Lip, Chin)</li>
+      <li>Unlimited Basic Facials & Cleanups</li>
+      <li>Unlimited Waxing (Arms, Legs, Underarms)</li>
+      <li>Unlimited Basic Manicure</li>
+      <li>Unlimited Basic Pedicure</li>
+    </ul>
+    <a href="#" class="btn">Get Basic Plan</a>
+  </div>
+
+  <!-- Medium Plan -->
+  <div class="card">
+    <div class="ribbon">Most Popular</div>
+    <div class="card-header medium-header">
+      <h2>Medium Plan</h2>
+      <div class="price">₹15,000</div>
+      <div class="yearly">per year</div>
+    </div>
+    <ul>
+      <li>All Basic Plan Services</li>
+      <li>Unlimited Blow Dry & Styling</li>
+      <li>Unlimited Hair Spa</li>
+      <li>Unlimited Root Touch-up</li>
+      <li>Unlimited Bleach & Detan</li>
+      <li>Unlimited Advanced Facials</li>
+      <li>Unlimited Manicure & Pedicure (Spa)</li>
+      <li>Unlimited Nail Polish Application</li>
+    </ul>
+    <a href="#" class="btn">Get Medium Plan</a>
+  </div>
+
+  <!-- Advanced Plan -->
+  <div class="card">
+    <div class="card-header advanced-header">
+      <h2>Advanced Plan</h2>
+      <div class="price">₹35,000</div>
+      <div class="yearly">per year</div>
+    </div>
+    <ul>
+      <li>All Medium Plan Services</li>
+      <li>Unlimited Hair Treatments (Keratin, Smoothening)</li>
+      <li>Unlimited Global Coloring / Henna</li>
+      <li>Unlimited Premium Facials & Skin Polishing</li>
+      <li>Unlimited Full Body Waxing</li>
+      <li>Unlimited Advanced Manicure & Pedicure</li>
+      <li>Unlimited Bridal / Party Makeup Trials</li>
+      <li>Unlimited Saree Draping & Hair Styling</li>
+    </ul>
+    <a href="#" class="btn">Get Advanced Plan</a>
+  </div>
+</div>
+
+</body>
+</html>
