@@ -10,147 +10,182 @@
 
 <style>
 /* Reset */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+*{margin:0;padding:0;box-sizing:border-box}
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: #fdf6f0;
-  color: #333;
-  overflow-x: hidden;
+  background: linear-gradient(135deg,#fdf6f0,#fff);
+  color:#333;
+  overflow-x:hidden;
 }
 
+/* Heading */
 h1 {
-  font-family: 'Playfair Display', serif;
-  text-align: center;
-  font-size: 42px;
-  color: #d14c5e;
-  margin: 40px 20px;
-  font-weight: 700;
+  font-family:'Playfair Display',serif;
+  text-align:center;
+  font-size:45px;
+  color:#222;
+  margin:50px 20px;
+  font-weight:700;
+  position:relative;
+}
+h1::after {
+  content:"";
+  width:80px;height:4px;
+  background:linear-gradient(90deg,#ff6b6b,#845ef7,#339af0);
+  display:block;
+  margin:15px auto 0;
+  border-radius:2px;
 }
 
-/* Carousel Container */
+/* Carousel */
 .carousel {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  padding-bottom: 40px;
+  position:relative;
+  width:100%;
+  padding:20px 0 60px;
 }
-
 .carousel-track {
-  display: flex;
-  gap: 20px;
-  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-  scroll-snap-type: x mandatory;
-  overflow-x: auto;
-  padding: 20px;
+  display:flex;
+  gap:30px;
+  overflow:hidden;
+  transition:transform .6s ease;
+  padding:20px;
+  justify-content:center;
 }
 
-.carousel-track::-webkit-scrollbar { display: none; }
-
-/* Cards */
+/* Card */
 .card {
-  flex: 0 0 90%;
-  max-width: 350px;
-  background: rgba(255,255,255,0.9);
-  border-radius: 30px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  scroll-snap-align: center;
-  margin: 0 auto;
+  flex:0 0 85%;
+  max-width:350px;
+  background:rgba(255,255,255,0.2);
+  backdrop-filter:blur(15px);
+  border-radius:25px;
+  padding-bottom:20px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.1);
+  text-align:center;
+  transition:.4s;
+  position:relative;
+  overflow:hidden;
 }
 .card:hover {
-  transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+  transform:translateY(-12px) scale(1.03);
+  box-shadow:0 25px 60px rgba(0,0,0,0.2);
+}
+.card::before {
+  content:"";
+  position:absolute;
+  top:-50%;
+  left:-50%;
+  width:200%;
+  height:200%;
+  background:radial-gradient(circle at center,rgba(255,255,255,0.2),transparent 70%);
+  transform:rotate(25deg);
 }
 
-/* Card Header */
+/* Header */
 .card-header {
-  border-radius: 30px 30px 0 0;
-  padding: 35px 20px;
-  color: #fff;
-  text-align: center;
+  padding:35px 20px 25px;
+  color:#fff;
+  border-radius:25px 25px 0 0;
 }
-.basic-header { background: linear-gradient(135deg, #fbb1b1, #f2c6c2); }
-.medium-header { background: linear-gradient(135deg, #b892ff, #7f5af0); }
-.advanced-header { background: linear-gradient(135deg, #89cffe, #5dade2); }
+.basic-header { background:linear-gradient(135deg,#ff6b6b,#ff8787); }
+.medium-header{ background:linear-gradient(135deg,#845ef7,#9775fa); }
+.advanced-header{ background:linear-gradient(135deg,#339af0,#4dabf7); }
 
 .card-header h2 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-size: 28px;
+  font-size:26px;
+  font-weight:700;
+  margin-bottom:8px;
 }
-.price {
-  font-size: 38px;
-  font-weight: 700;
-  margin-top: 10px;
+.price-badge {
+  background:#fff;
+  color:#111;
+  display:inline-block;
+  padding:10px 20px;
+  border-radius:30px;
+  font-weight:700;
+  font-size:20px;
+  margin-top:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
 }
-.yearly { font-size: 16px; opacity: 0.9; margin-bottom: 0; }
+.yearly {
+  font-size:14px;
+  opacity:.9;
+  margin-top:6px;
+}
 
-/* Services List */
+/* List */
 ul {
-  list-style: none;
-  padding: 20px;
-  font-size: 16px;
+  list-style:none;
+  padding:25px 20px;
+  text-align:left;
+  font-size:15px;
 }
 ul li {
-  padding: 10px 0;
-  border-bottom: 1px dashed #eee;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: transform 0.3s;
+  margin:12px 0;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  position:relative;
+  padding-left:25px;
 }
-ul li::before { content: "✔"; color: #d14c5e; font-weight: bold; }
-ul li:hover { transform: translateX(5px); }
+ul li::before {
+  content:"✔";
+  color:#28a745;
+  position:absolute;
+  left:0;
+  font-weight:bold;
+}
 
-/* Buttons */
+/* Button */
 .btn {
-  display: block;
-  padding: 14px;
-  margin: 20px auto 30px;
-  width: 80%;
-  border-radius: 35px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 16px;
-  color: #fff;
-  transition: all 0.3s ease;
-  text-align: center;
+  display:block;
+  padding:14px;
+  margin:10px auto 25px;
+  width:80%;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:600;
+  font-size:16px;
+  color:#fff;
+  transition:.3s;
 }
-.btn:hover { transform: scale(1.05); box-shadow: 0 15px 25px rgba(0,0,0,0.2); }
-.basic-btn { background: linear-gradient(135deg, #fbb1b1, #f2c6c2); }
-.medium-btn { background: linear-gradient(135deg, #b892ff, #7f5af0); }
-.advanced-btn { background: linear-gradient(135deg, #89cffe, #5dade2); }
+.btn:hover {
+  transform:scale(1.07);
+  box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+.basic-btn{background:linear-gradient(135deg,#ff6b6b,#ff8787);}
+.medium-btn{background:linear-gradient(135deg,#845ef7,#9775fa);}
+.advanced-btn{background:linear-gradient(135deg,#339af0,#4dabf7);}
 
-/* Navigation Arrows */
-.prev, .next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.3);
-  color: #fff;
-  font-size: 28px;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 10;
-  transition: 0.3s;
+/* Arrows */
+.arrow {
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:#fff;
+  color:#333;
+  font-size:28px;
+  border:none;
+  padding:10px 15px;
+  border-radius:50%;
+  cursor:pointer;
+  z-index:10;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  transition:.3s;
 }
-.prev:hover, .next:hover { background: rgba(0,0,0,0.6); }
-.prev { left: 10px; }
-.next { right: 10px; }
+.arrow:hover { background:#111;color:#fff; }
+.prev{left:10px;}
+.next{right:10px;}
 
-@media(min-width: 768px) {
-  .carousel-track { gap: 30px; padding: 40px; }
-  .card { flex: 0 0 45%; }
+/* Responsive */
+@media(min-width:768px){
+  .card{flex:0 0 45%;}
 }
-@media(min-width: 1024px) {
-  .carousel-track { gap: 40px; padding: 50px 60px; }
-  .card { flex: 0 0 30%; }
-  .prev, .next { display: none; }
+@media(min-width:1024px){
+  .card{flex:0 0 30%;}
+  .prev,.next{display:none;}
 }
-
 </style>
 </head>
 <body>
@@ -158,13 +193,13 @@ ul li:hover { transform: translateX(5px); }
 <h1>INFINITY AMC PLAN</h1>
 
 <div class="carousel">
-  <button class="prev">&#10094;</button>
+  <button class="arrow prev">&#10094;</button>
   <div class="carousel-track">
-    <!-- Basic Plan -->
+    <!-- Basic -->
     <div class="card">
       <div class="card-header basic-header">
         <h2>Basic Plan</h2>
-        <div class="price">₹5,000</div>
+        <div class="price-badge">₹5,000</div>
         <div class="yearly">per year</div>
       </div>
       <ul>
@@ -180,11 +215,11 @@ ul li:hover { transform: translateX(5px); }
       <a href="https://api.whatsapp.com/send?phone=+918432019333&text=Hi,+I+want+to+buy+the+Basic+AMC+Plan" target="_blank" class="btn basic-btn">Get Basic Plan</a>
     </div>
 
-    <!-- Medium Plan -->
+    <!-- Medium -->
     <div class="card">
       <div class="card-header medium-header">
         <h2>Medium Plan</h2>
-        <div class="price">₹15,000</div>
+        <div class="price-badge">₹15,000</div>
         <div class="yearly">per year</div>
       </div>
       <ul>
@@ -194,77 +229,61 @@ ul li:hover { transform: translateX(5px); }
         <li>Unlimited Root Touch-up</li>
         <li>Unlimited Bleach & Detan</li>
         <li>Unlimited Advanced Facials</li>
-        <li>Unlimited Manicure & Pedicure (Spa)</li>
+        <li>Unlimited Spa Manicure & Pedicure</li>
         <li>Unlimited Nail Polish Application</li>
       </ul>
       <a href="https://api.whatsapp.com/send?phone=+918432019333&text=Hi,+I+want+to+buy+the+Medium+AMC+Plan" target="_blank" class="btn medium-btn">Get Medium Plan</a>
     </div>
 
-    <!-- Advanced Plan -->
+    <!-- Advanced -->
     <div class="card">
       <div class="card-header advanced-header">
         <h2>Advanced Plan</h2>
-        <div class="price">₹35,000</div>
+        <div class="price-badge">₹35,000</div>
         <div class="yearly">per year</div>
       </div>
       <ul>
         <li>All Medium Plan Services</li>
         <li>Unlimited Hair Treatments</li>
         <li>Unlimited Global Coloring / Henna</li>
-        <li>Unlimited Premium Facials & Skin Polishing</li>
+        <li>Unlimited Premium Facials & Polishing</li>
         <li>Unlimited Full Body Waxing</li>
         <li>Unlimited Advanced Manicure & Pedicure</li>
         <li>Unlimited Bridal / Party Makeup Trials</li>
-        <li>Unlimited Saree Draping & Hair Styling</li>
+        <li>Unlimited Saree Draping & Styling</li>
       </ul>
       <a href="https://api.whatsapp.com/send?phone=+918432019333&text=Hi,+I+want+to+buy+the+Advanced+AMC+Plan" target="_blank" class="btn advanced-btn">Get Advanced Plan</a>
     </div>
   </div>
-  <button class="next">&#10095;</button>
+  <button class="arrow next">&#10095;</button>
 </div>
 
 <script>
-const track = document.querySelector('.carousel-track');
-const cards = Array.from(track.children);
-const nextBtn = document.querySelector('.next');
-const prevBtn = document.querySelector('.prev');
-let index = 0;
+const track=document.querySelector('.carousel-track');
+const cards=Array.from(track.children);
+const next=document.querySelector('.next');
+const prev=document.querySelector('.prev');
+let idx=0;
 
-function updateCarousel() {
-  const cardWidth = cards[0].offsetWidth + 20; // include gap
-  track.style.transform = `translateX(-${index * cardWidth}px)`;
+function updateCarousel(){
+  const cardWidth=cards[0].offsetWidth+30;
+  track.style.transform=`translateX(-${idx*cardWidth}px)`;
 }
 
-// Buttons
-nextBtn.addEventListener('click', () => {
-  index = (index + 1) % cards.length;
+next.addEventListener('click',()=>{
+  idx=(idx+1)%cards.length;
   updateCarousel();
 });
-prevBtn.addEventListener('click', () => {
-  index = (index - 1 + cards.length) % cards.length;
+prev.addEventListener('click',()=>{
+  idx=(idx-1+cards.length)%cards.length;
   updateCarousel();
 });
 
-// Mobile Drag
-let isDown = false;
-let startX;
-let scrollLeft;
-
-track.addEventListener('mousedown', (e) => {
-  isDown = true;
-  track.classList.add('active');
-  startX = e.pageX - track.offsetLeft;
-  scrollLeft = track.scrollLeft;
-});
-track.addEventListener('mouseleave', () => isDown = false);
-track.addEventListener('mouseup', () => isDown = false);
-track.addEventListener('mousemove', (e) => {
-  if(!isDown) return;
-  e.preventDefault();
-  const x = e.pageX - track.offsetLeft;
-  const walk = (x - startX) * 1.5;
-  track.scrollLeft = scrollLeft - walk;
-});
+// Auto slide
+setInterval(()=>{
+  idx=(idx+1)%cards.length;
+  updateCarousel();
+},4000);
 </script>
 
 </body>
