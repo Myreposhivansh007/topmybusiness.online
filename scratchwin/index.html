@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infinity Scratch & Win</title>
+<style>
+    body {
+        background: linear-gradient(135deg, #ff8a00, #e52e71);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-family: 'Poppins', sans-serif;
+        color: white;
+        overflow: hidden;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    h1 {
+        margin-bottom: 20px;
+        font-size: 2.2rem;
+        text-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    }
+    /* Premium Prime Member Card */
+    .prime-card {
+        background: linear-gradient(135deg, #ffd700, #ffcc00);
+        padding: 15px 20px;
+        border-radius: 15px;
+        color: #4b2e00;
+        text-align: center;
+        font-weight: bold;
+        width: 300px;
+        box-shadow: 0 4px 20px rgba(255, 215, 0, 0.6);
+        margin-bottom: 20px;
+        animation: glow 2s infinite alternate;
+    }
+    .prime-card small {
+        display: block;
+        font-weight: normal;
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+    @keyframes glow {
+        from { box-shadow: 0 0 15px rgba(255, 215, 0, 0.6); }
+        to { box-shadow: 0 0 30px rgba(255, 215, 0, 0.9); }
+    }
+    .scratch-container {
+        position: relative;
+        width: 320px;
+        height: 200px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        border-radius: 20px;
+        overflow: hidden;
+    }
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 20px;
+    }
+    .prize {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: bold;
+        background: white;
+        color: #e52e71;
+        border-radius: 20px;
+    }
+    .result {
+        margin-top: 20px;
+        padding: 12px 20px;
+        font-size: 1.2rem;
+        background: rgba(255,255,255,0.15);
+        border-radius: 10px;
+        backdrop-filter: blur(8px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        display: none;
+    }
+    /* Note about eligibility */
+    .note {
+        margin-top: 15px;
+        font-size: 0.9rem;
+        color: #fff5cc;
+        background: rgba(0,0,0,0.25);
+        padding: 8px 12px;
+        border-radius: 8px;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+
+<h1>🎉 Infinity Salon Scratch & Win 🎉</h1>
+
+<div class="prime-card">
+    ⭐ You are a Prime Member ⭐
+    <small>As you joined our Prime WhatsApp group, you are eligible for scratch card extra benefits!</small>
+</div>
+
+<div class="scratch-container">
+    <div class="prize" id="prizeText"></div>
+    <canvas id="scratchCard" width="320" height="200"></canvas>
+</div>
+
+<div class="result" id="resultBox"></div>
+
+<div class="note">Scratch card discount is eligible for all services above ₹300</div>
+
+<script>
+    const canvas = document.getElementById('scratchCard');
+    const ctx = canvas.getContext('2d');
+    const prizeText = document.getElementById('prizeText');
+    const resultBox = document.getElementById('resultBox');
+
+    // Generate random discount between ₹60 and ₹120
+    let discount = Math.floor(Math.random() * (120 - 60 + 1)) + 60;
+    prizeText.innerHTML = `🎁 ₹${discount} OFF 🎁`;
+    resultBox.innerHTML = `You won ₹${discount} OFF! 🎊`;
+
+    // Fill canvas with grey scratch layer
+    ctx.fillStyle = '#C0C0C0';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.globalCompositeOperation = 'destination-out';
+
+    let isDrawing = false;
+
+    function getMousePos(canvas, e) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top
+        };
+    }
+
+    function getTouchPos(canvas, e) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+            x: e.touches[0].clientX - rect.left,
+            y: e.touches[0].clientY - rect.top
+        };
+    }
+
+    function startDrawing(e) {
+        isDrawing = true;
+        scratch(e);
+    }
+
+    function stopDrawing() {
+        isDrawing = false;
+        checkScratchPercentage();
+    }
+
+    function scratch(e) {
+        if (!isDrawing) return;
+        e.preventDefault();
+        let pos = e.type.includes('touch') ? getTouchPos(canvas, e) : getMousePos(canvas, e);
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.y, 20, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    function checkScratchPercentage() {
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        let cleared = 0;
+        for (let i = 0; i < imageData.data.length; i += 4) {
+            if (imageData.data[i + 3] === 0) {
+                cleared++;
+            }
+        }
+        let percent = (cleared / (canvas.width * canvas.height)) * 100;
+        if (percent > 60) {
+            canvas.style.display = 'none';
+            resultBox.style.display = 'block';
+        }
+    }
+
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', scratch);
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('mouseleave', stopDrawing);
+
+    canvas.addEventListener('touchstart', startDrawing);
+    canvas.addEventListener('touchmove', scratch);
+    canvas.addEventListener('touchend', stopDrawing);
+</script>
+
+</body>
+</html>
